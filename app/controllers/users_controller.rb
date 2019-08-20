@@ -12,7 +12,6 @@ class UsersController < ApplicationController
       flash[:notice] = "Account successfully created."
       redirect_to root_path
     else
-      flash.now[:alert] = "Please, fill in all required fields."
       render :new
     end
   end
