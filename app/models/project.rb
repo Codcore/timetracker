@@ -12,4 +12,5 @@ class Project < ApplicationRecord
     def create_slug
       self.slug = SecureRandom.hex
     end
+
 end

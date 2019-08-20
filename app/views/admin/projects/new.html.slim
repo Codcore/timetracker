@@ -1,3 +1,5 @@
+= tinymce_assets
+
 div class="row justify-content-center mt-3"
   h2 New Project
 
@@ -7,6 +9,8 @@ div class="row justify-content-center mt-3"
     = bootstrap_form_with model: [:admin, @project], local: true do |form|
 
       = form.text_field :name
-      = form.text_field :description
+      = form.text_area :description, class: "tinymce", :rows => 40, :cols => 120
 
       = form.submit "Create project", class: "btn btn-success"
+
+= tinymce

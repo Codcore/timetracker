@@ -4,6 +4,8 @@ div class="row justify-content-center mt-3"
 - @projects.each do |project|
 
   div class="card mt-3 auto"
-    div class="card-header" = project.name
-    div class="card-body"   = project.description
-    div class="card-footer" = project.created_at
+    div class="card-header"
+      b = project.name
+    div class="card-body"   = raw project.description
+    div class="card-footer d-flex flex-row-reverse"
+      span class="text-muted date-created" = project.created_at.strftime('%B %e at %l:%M %p')
