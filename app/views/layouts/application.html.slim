@@ -8,8 +8,10 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
+
+    = render 'shared/nav'
+
     .container
-      = render 'shared/nav'
       = render 'shared/flash'
 
       = yield

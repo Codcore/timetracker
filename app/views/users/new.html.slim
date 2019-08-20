@@ -4,7 +4,7 @@ div class="row justify-content-center mt-3"
   h2 Sign Up
 
 div class="row justify-content-center mt-3"
-  div class="card col-6"
+  div class="card col-6 pt-3"
 
     = bootstrap_form_for @user do |form|
       = form.text_field :name
@@ -12,4 +12,4 @@ div class="row justify-content-center mt-3"
       = form.text_field :email
       = form.password_field :password
       = form.password_field :password_confirmation
-      = form.submit "Sign up!"
+      = form.submit "Sign up!", class: "btn btn-danger"

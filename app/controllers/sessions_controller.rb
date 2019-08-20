@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
         redirect_to root_path, notice: "Welcome, #{@user.name} #{@user.surname}!"
       end
     else
+      flash[:error] = "Wrong email and password combination"
       render :new
     end
   end

@@ -1,13 +1,11 @@
-= render 'shared/errors', resource: @user
-
 div class="row justify-content-center mt-3"
   h2 Log In
 
 div class="row justify-content-center mt-3"
-  div class="card col-6"
+  div class="card col-6 pt-3"
     = bootstrap_form_with url: login_path, local: true do |form|
 
       = form.text_field :email
       = form.password_field :password
 
-      = form.submit 'Log in'
+      = form.submit "Log in", class: "btn btn-success"
