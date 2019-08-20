@@ -1,0 +1,8 @@
+- if resource.present? && resource.errors.present?
+  = content_tag :div, class: "alert alert-danger mt-4 #{resource.class.to_s.underscore}-errors", data: { resource_id: resource.id } do
+    h5 = 'Errors detected:'
+    hr
+
+    ul
+      - resource.errors.full_messages.each do |message|
+        li = message
