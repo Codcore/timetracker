@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id.to_s
-      redirect_to root_path, notice: "Welcome, #{@user.name} #{@user.surname}!"
+      if @user.admin?
+        redirect_to admin_projects_path, notice: "Welcome, administrator #{@user.name} #{@user.surname}!"
+      else
+        redirect_to root_path, notice: "Welcome, #{@user.name} #{@user.surname}!"
+      end
     else
       render :new
     end
