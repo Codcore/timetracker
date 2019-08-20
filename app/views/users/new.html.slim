@@ -1,22 +1,15 @@
 = render 'shared/errors', resource: @user
 
-h1 Sign Up
+div class="row justify-content-center mt-3"
+  h2 Sign Up
 
-= bootstrap_form_for @user do |form|
-  div
-    = form.text_field :name
+div class="row justify-content-center mt-3"
+  div class="card col-6"
 
-  div
-    = form.text_field :surname
-
-  div
-    = form.text_field :email
-
-  div
-    = form.password_field :password
-
-  div
-    = form.password_field :password_confirmation
-
-  div
-    = form.submit "Sign up!"
+    = bootstrap_form_for @user do |form|
+      = form.text_field :name
+      = form.text_field :surname
+      = form.text_field :email
+      = form.password_field :password
+      = form.password_field :password_confirmation
+      = form.submit "Sign up!"
