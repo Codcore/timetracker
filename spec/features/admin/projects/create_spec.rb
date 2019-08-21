@@ -15,5 +15,11 @@ feature 'Administrator can create projects', %q{
   scenario 'Administrator add a new project' do
     click_on 'Add project'
     expect(page).to have_content("New Project")
+
+    fill_in 'Name', with: 'Test project'
+    fill_in 'Description', with: 'Test project description'
+    click_on 'Create project'
+
+    expect(page).to have_content 'Test project'
   end
 end

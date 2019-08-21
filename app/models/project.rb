@@ -7,6 +7,10 @@ class Project < ApplicationRecord
 
   before_save :create_slug
 
+  def to_param
+    slug
+  end
+
   private
 
     def create_slug

@@ -6,9 +6,12 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
 
   resources :users, only: [:new, :create]
-  resources :projects, only: [:index]
+
+  resources :projects, only: [:index, :show]
+  get 'projects/:slug' => 'projects#show'
 
   namespace :admin do
-    resources :projects
+    resources :projects, except: [:show]
+    get 'projects/:slug' => 'projects#show'
   end
 end

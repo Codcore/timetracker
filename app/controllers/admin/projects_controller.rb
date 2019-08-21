@@ -5,6 +5,10 @@ module Admin
       @projects = Project.all
     end
 
+    def show
+      @project = Project.find_by(slug: params[:slug])
+    end
+
     def new
       @project = Project.new
     end
@@ -15,7 +19,7 @@ module Admin
       if @project.save
         # TODO: redirect to the project path (or use AJAX)
         flash[:notice] = "Project successfully created"
-        redirect_to admin_projects_path
+        redirect_to admin_project_path(@project)
       else
         render :new
       end
