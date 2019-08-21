@@ -19,7 +19,8 @@ feature 'User can register an account', %q{
 
     click_on 'Sign up'
 
-    expect(page).to have_content('Account successfully created.')
+    expect(page).to have_content("Account successfully created. Now you can log in.")
+    expect(current_path).to eq(login_path)
   end
 
   scenario 'User creates account with errors' do

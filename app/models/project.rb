@@ -1,9 +1,9 @@
-require 'SecureRandom'
+require 'securerandom'
 
 class Project < ApplicationRecord
   validates :name, presence: true
   validates :slug, presence: true, on: :save
-  validates :slug, uniqueness: true
+  validates :slug, uniqueness: true, on: :save
 
   before_save :create_slug
 

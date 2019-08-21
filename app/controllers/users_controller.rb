@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     @user.email.downcase!
 
     if @user.save
-      flash[:notice] = "Account successfully created."
-      redirect_to root_path
+      flash[:notice] = "Account successfully created. Now you can log in."
+      redirect_to login_path
     else
       render :new
     end
