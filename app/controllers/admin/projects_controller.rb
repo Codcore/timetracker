@@ -1,7 +1,7 @@
 module Admin
   class ProjectsController < AdminController
 
-    before_action :find_project, only: [:show, :destroy, :edit, :update]
+    before_action :find_project, only: [:show, :destroy, :edit, :update, :assign_user, :unassign_user]
 
     def index
       # TODO: make a pagination
@@ -9,6 +9,9 @@ module Admin
     end
 
     def show
+      # TODO: create scope for admins and non-admins
+      @users = User.where(admin: false)
+      @users_array = @users.map { |user| ["#{user.name} #{user.surname}", user.id] }
     end
 
     def new
@@ -43,6 +46,24 @@ module Admin
     def destroy
       @project.destroy
       redirect_to admin_projects_path
+    end
+
+    def assign_user
+      # TODO: move find to the method
+      @user = User.find(params[:assign_user])
+      @project.users << @user
+    rescue ActiveRecord::RecordNotUnique
+      flash[:error] = "User is already assigned to the project"
+    else
+      flash[:notice] = "User was successfully assigned to the project"
+      redirect_to admin_project_path(@project)
+    end
+
+    def unassign_user
+      @user = User.find(params[:assign_user])
+      @project.users.delete(@user)
+      flash[:notice] = "User was successfully unassigned"
+      redirect_to admin_project_path(@project)
     end
 
     private

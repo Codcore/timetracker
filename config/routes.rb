@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'projects/:slug' => 'projects#show'
 
   namespace :admin do
-    resources :projects, param: :slug
+    resources :projects, param: :slug do
+      post 'assign_user' => 'projects#assign_user', on: :member
+      delete 'assign_user' => 'projects#unassign_user', on: :member
+    end
   end
 end

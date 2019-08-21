@@ -3,6 +3,7 @@ require 'securerandom'
 class Project < ApplicationRecord
 
   belongs_to :author, class_name: "User", foreign_key: :user_id
+  has_and_belongs_to_many :users
 
   validates :name, presence: true
   validates :slug, presence: true, on: :create

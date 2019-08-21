@@ -5,6 +5,7 @@ RSpec.describe Project, type: :model do
   let!(:project) { create(:project, author: author) }
 
   it { should belong_to :author }
+  it { should have_and_belong_to_many :users }
 
   it { should validate_presence_of :name }
   it { should validate_presence_of(:slug).on(:create) }
