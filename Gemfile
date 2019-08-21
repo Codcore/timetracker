@@ -64,7 +64,6 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
   gem 'shoulda-matchers'
-  gem 'rails-controller-testing'
   # Easy installation and use of chromedriver to run system tests with Chrome
 end
 

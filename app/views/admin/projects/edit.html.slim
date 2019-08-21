@@ -1,6 +1,10 @@
+
+
 div class="row justify-content-center mt-3"
   h2 Edit Project
+
+div class="row justify-content-center mt-3"
   h5 = @project.name
 
-= render 'form'
+= render 'form', action: "Update"
 

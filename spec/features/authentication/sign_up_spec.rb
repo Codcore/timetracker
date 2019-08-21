@@ -6,7 +6,7 @@ feature 'User can register an account', %q{
   I'd like to create personal account
 } do
 
-  before do
+  background do
     visit new_user_path
   end
 
@@ -25,7 +25,6 @@ feature 'User can register an account', %q{
 
   scenario 'User creates account with errors' do
     click_on 'Sign up'
-
 
     expect(page).to have_content("Name can\'t be blank")
     expect(page).to have_content("Email can\'t be blank")

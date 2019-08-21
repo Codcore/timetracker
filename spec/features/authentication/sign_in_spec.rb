@@ -7,9 +7,9 @@ feature 'User can login', %q{
 } do
 
   let!(:user) { create(:user) }
-  let!(:admin) { create(:user, admin: true) }
+  let!(:admin) { create(:user, :admin) }
 
-  before do
+  background do
     visit login_path
   end
 

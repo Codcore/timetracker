@@ -1,0 +1,12 @@
+div class="row justify-content-center mt-3"
+  div class="card col-10 pt-3"
+    = render 'shared/errors', resource: @project
+
+    = bootstrap_form_with model: [:admin, @project], local: true do |form|
+
+      = form.text_field :name
+      = form.text_area :description, class: "tinymce", rows: 20, cols: 60
+
+      = form.submit "#{action} project", class: "btn btn-success mb-3"
+
+= tinymce

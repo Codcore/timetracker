@@ -1,11 +1,15 @@
 require 'securerandom'
 
 class Project < ApplicationRecord
-  validates :name, presence: true
-  validates :slug, presence: true, on: :save
-  validates :slug, uniqueness: true, on: :save
 
-  before_save :create_slug
+  belongs_to :author, class_name: "User", foreign_key: :user_id
+
+  validates :name, presence: true
+  validates :slug, presence: true, on: :create
+  validates :slug, uniqueness: true, on: :create
+  validates :author, presence: true, on: :create
+
+  before_save :before_save_create_slug
 
   def to_param
     slug
@@ -13,7 +17,7 @@ class Project < ApplicationRecord
 
   private
 
-    def create_slug
-      self.slug = SecureRandom.hex
+    def before_save_create_slug
+      self.slug = SecureRandom.hex unless self.slug
     end
 end

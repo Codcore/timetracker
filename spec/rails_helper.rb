@@ -59,6 +59,8 @@ RSpec.configure do |config|
 
   config.include FeatureHelpers, type: :feature
 
+  Capybara.javascript_driver = :selenium_chrome_headless
+
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:

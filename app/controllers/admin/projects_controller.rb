@@ -1,7 +1,7 @@
 module Admin
   class ProjectsController < AdminController
 
-    before_action :find_project, only: [:show, :destroy, :update]
+    before_action :find_project, only: [:show, :destroy, :edit, :update]
 
     def index
       # TODO: make a pagination
@@ -17,6 +17,7 @@ module Admin
 
     def create
       @project = Project.new(project_params)
+      @project.user_id = current_user.id
 
       if @project.save
         # TODO: redirect to the project path (or use AJAX)
@@ -27,7 +28,16 @@ module Admin
       end
     end
 
+    def edit
+    end
+
     def update
+      if @project.update(project_params)
+        flash[:notice] = "Project updated successfully"
+        redirect_to admin_project_path(@project)
+      else
+        render :edit
+      end
     end
 
     def destroy
