@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get 'projects/:slug' => 'projects#show'
 
   namespace :admin do
-    resources :projects, except: [:show]
-    get 'projects/:slug' => 'projects#show'
+    resources :projects, param: :slug
   end
 end

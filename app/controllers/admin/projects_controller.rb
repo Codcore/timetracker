@@ -1,12 +1,14 @@
 module Admin
   class ProjectsController < AdminController
+
+    before_action :find_project, only: [:show, :destroy, :update]
+
     def index
       # TODO: make a pagination
       @projects = Project.all
     end
 
     def show
-      @project = Project.find_by(slug: params[:slug])
     end
 
     def new
@@ -29,9 +31,15 @@ module Admin
     end
 
     def destroy
+      @project.destroy
+      redirect_to admin_projects_path
     end
 
     private
+
+      def find_project
+        @project = Project.find_by(slug: params[:slug])
+      end
 
       def project_params
         params.require(:project).permit(:name, :description)
