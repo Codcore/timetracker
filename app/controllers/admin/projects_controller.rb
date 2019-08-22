@@ -9,9 +9,7 @@ module Admin
     end
 
     def show
-      # TODO: create scope for admins and non-admins
-      @users = User.where(admin: false)
-      @users_array = @users.map { |user| ["#{user.name} #{user.surname}", user.id] }
+      @users_array = User.programmers.map { |user| ["#{user.name} #{user.surname}", user.id] }
     end
 
     def new
