@@ -2,7 +2,7 @@ div class="card mt-3 auto"
   div class="card-body"
     h5 class="card-title"
       = link_to project.name, admin_project_path(project)
-    h6 class="text-muted mb-2" #{project.author.name} #{project.author.surname}
+    span class="badge badge-secondary" #{project.author.name} #{project.author.surname}
 
     hr
     = raw project.description.truncate(500, separator: ' ')

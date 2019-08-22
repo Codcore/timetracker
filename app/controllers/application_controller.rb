@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def active_link(item)
-    controller = path[:controller].to_sym
-    "active" if cont
+    controller = controller_name.to_sym
+    "active" if controller == item.to_sym
   end
 end

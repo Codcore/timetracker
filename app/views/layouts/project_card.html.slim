@@ -1,0 +1,22 @@
+div class="row justify-content-center mt-3"
+  h1 = @project.name
+
+div class="card mt-3 auto"
+  div class="card-header"
+    ul class="nav nav-tabs card-header-tabs" id="pojectTab" role="tablist"
+      li class="nav-item"
+        = link_to "Description", admin_project_path(@project), class: "nav-link #{active_link(:projects)}"
+      li class="nav-item"
+        = link_to "Users", admin_project_projects_users_path(@project), class: "nav-link #{active_link(:projects_users)}"
+      li class="nav-item"
+        = link_to "Tasks", "#", class: "nav-link"
+
+
+  div class="card-body pane"
+
+    = yield :pane_content
+
+  div class="card-footer"
+    = link_to "Edit", edit_admin_project_path(@project), class: "btn btn-sm btn-info mr-3 float-right"
+    = link_to "Delete", admin_project_path(@project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
+    span class="text-muted date-created" = @project.created_at.strftime('%B %e at %l:%M %p')
