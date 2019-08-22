@@ -11,19 +11,20 @@ div class="card mt-3 auto"
   div class="card m-3 auto"
     div class="card-header" Assign users to the project
     div class="card-body"
-      = bootstrap_form_with url: assign_user_admin_project_path(@project), class: "form-inline" do |form|
-        = form.select(:assign_user, @users_array, hide_label: true)
-        = form.submit 'Assign user', class: "m-3 btn btn-sm btn-success"
+      div class="input-group"
+        = bootstrap_form_with url: assign_user_admin_project_path(@project), class: "form-inline" do |form|
+          = form.select(:assign_user, @users_array, { hide_label: true, prompt: 'Select user to assign to the project...'}, { class: "form-control-sm" })
+          = form.submit 'Assign user', class: "m-3 btn btn-sm btn-success"
 
     - if @project.users.any?
-      div class="card m-3"
+      div class="card mr-3 ml-3 user-assign"
         ul class="list-group list-group-flush"
           li class="list-group-item active" Assigned users
           - @project.users.each do |user|
             li class="list-group-item"
               = user.name + ' ' + user.surname
               |
-              = link_to 'Unassign', assign_user_admin_project_path(@project, assign_user: user.id), class: "btn btn-sm btn-danger float-right", method: :delete
+              = link_to 'Unassign user', assign_user_admin_project_path(@project, assign_user: user.id), class: "btn btn-sm btn-danger float-right", method: :delete
 
   div class="card-footer d-flex flex-row-reverse"
     span class="text-muted date-created" = @project.created_at.strftime('%B %e at %l:%M %p')

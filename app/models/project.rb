@@ -6,9 +6,8 @@ class Project < ApplicationRecord
   has_and_belongs_to_many :users
 
   validates :name, presence: true
-  validates :slug, presence: true, on: :save
-  validates :slug, uniqueness: true, on: :save
-  validates :author, presence: true, on: :create
+  validates :slug, presence: true, uniqueness: true, on: :save
+  validates :author, presence: true
 
   before_save :before_save_create_slug
 

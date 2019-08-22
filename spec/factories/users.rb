@@ -1,13 +1,11 @@
 FactoryBot.define do
   factory :user do
-    name { "MyString" }
+    sequence(:name) { |n| "MyString#{n}" }
     surname { "MyString" }
     date_of_birth { "2019-08-20" }
     position { "MyString" }
 
-    sequence :email do |n|
-      "test#{n}@email.com"
-    end
+    sequence(:email) { |n| "test#{n}@email.com" }
 
     password { "123456" }
     password_confirmation { "123456" }

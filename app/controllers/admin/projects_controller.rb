@@ -14,7 +14,8 @@ module Admin
     end
 
     def show
-      @users_array = User.programmers.map { |user| ["#{user.name} #{user.surname}", user.id] }
+      @users_array = User.programmers.where.not(id: @project.users.pluck(:id))
+          .map { |user| ["#{user.name} #{user.surname}", user.id] }
     end
 
     def new
@@ -51,9 +52,6 @@ module Admin
 
     def assign_user
       @project.users << @user
-    rescue ActiveRecord::RecordNotUnique
-      flash[:error] = MSG_ERR_USER_ALREADY_ASSIGNED
-    else
       flash[:notice] = MSG_USER_ASSIGNED
       redirect_to admin_project_path(@project)
     end

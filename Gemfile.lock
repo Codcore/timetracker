@@ -55,6 +55,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    bootstrap-select-rails (1.13.8)
     bootstrap_form (4.2.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -258,6 +259,7 @@ DEPENDENCIES
   bcrypt
   bootsnap (>= 1.1.0)
   bootstrap (>= 4.3.1)
+  bootstrap-select-rails
   bootstrap_form (>= 4.2.0)
   byebug
   capybara (>= 2.15)
