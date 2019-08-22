@@ -10,7 +10,7 @@ module Admin
 
     def index
       # TODO: make a pagination
-      @projects = Project.all.includes(:author)
+      @projects = Project.all.includes(:author).paginate(page: params[:page], per_page: 10)
     end
 
     def show
