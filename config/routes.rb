@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   root to: "projects#index"
 
-  get '/login'     => 'sessions#new'
-  post '/login'    => 'sessions#create'
+  get    '/login'     => 'sessions#new'
+  post   '/login'    => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
   resources :users, only: [:new, :create]
@@ -12,8 +12,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :projects, param: :slug do
-      post 'assign_user' => 'projects#assign_user', on: :member
-      delete 'assign_user' => 'projects#unassign_user', on: :member
+      resources :projects_users, only: [:index, :create, :destroy], path: 'assignments', param: :user_id
     end
   end
 end

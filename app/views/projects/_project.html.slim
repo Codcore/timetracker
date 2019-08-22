@@ -1,7 +1,14 @@
 div class="card mt-3 auto"
-  div class="card-header"
-    b = link_to project.name, admin_project_path(project)
-  div class="card-body"   = raw project.description.truncate(500, separator: ' ')
-  div class="card-footer d-flex flex-row-reverse"
+  div class="card-body"
+    h5 class="card-title"
+      = link_to project.name, admin_project_path(project)
+    h6 class="text-muted mb-2" #{project.author.name} #{project.author.surname}
+
+    hr
+    = raw project.description.truncate(500, separator: ' ')
+
+  div class="card-footer"
+    = link_to "Edit", edit_admin_project_path(project), class: "btn btn-sm btn-info mr-3 float-right"
+    = link_to "Delete", admin_project_path(project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
+
     div class="text-muted date-created" = project.created_at.strftime('%B %e at %l:%M %p')
-    div class="text-muted author_name pr-2" Author: #{project.author.name} #{project.author.surname}  |

@@ -23,10 +23,11 @@ feature 'Administrator can assign users to the project', %q{
     default_option = "Select user to assign to the project..."
 
     visit admin_project_path(project)
+    click_on 'Users'
 
     expect(page).to have_select(:options => [name_1, name_2, default_option])
 
-    page.select("#{user_1.name} #{user_1.surname}", from: "assign_user")
+    page.select("#{user_1.name} #{user_1.surname}", from: "user_id")
     click_on "Assign user"
 
     expect(page).to have_select(:options => [name_2, default_option])
@@ -35,7 +36,7 @@ feature 'Administrator can assign users to the project', %q{
       expect(page).to have_content(name_1)
     end
 
-    page.select(name_2, from: "assign_user")
+    page.select(name_2, from: "user_id")
     click_on "Assign user"
 
     within ".user-assign" do
