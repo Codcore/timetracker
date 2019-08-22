@@ -1,11 +1,16 @@
+require_relative '../../helpers/messages/projects_messages'
+
 module Admin
   class ProjectsController < AdminController
 
-    before_action :find_project, only: [:show, :destroy, :edit, :update, :assign_user, :unassign_user]
+    include Messages::ProjectsMessages
+
+    before_action :find_project, only: %w(show destroy edit update assign_user unassign_user)
+    before_action :find_user, only: %w(assign_user unassign_user)
 
     def index
       # TODO: make a pagination
-      @projects = Project.all
+      @projects = Project.all.includes(:author)
     end
 
     def show
@@ -21,20 +26,18 @@ module Admin
       @project.user_id = current_user.id
 
       if @project.save
-        # TODO: redirect to the project path (or use AJAX)
-        flash[:notice] = "Project successfully created"
+        flash[:notice] = MSG_PROJECT_CREATED
         redirect_to admin_project_path(@project)
       else
         render :new
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @project.update(project_params)
-        flash[:notice] = "Project updated successfully"
+        flash[:notice] = MSG_PROJECT_UPDATED
         redirect_to admin_project_path(@project)
       else
         render :edit
@@ -47,20 +50,17 @@ module Admin
     end
 
     def assign_user
-      # TODO: move find to the method
-      @user = User.find(params[:assign_user])
       @project.users << @user
     rescue ActiveRecord::RecordNotUnique
-      flash[:error] = "User is already assigned to the project"
+      flash[:error] = MSG_ERR_USER_ALREADY_ASSIGNED
     else
-      flash[:notice] = "User was successfully assigned to the project"
+      flash[:notice] = MSG_USER_ASSIGNED
       redirect_to admin_project_path(@project)
     end
 
     def unassign_user
-      @user = User.find(params[:assign_user])
       @project.users.delete(@user)
-      flash[:notice] = "User was successfully unassigned"
+      flash[:notice] = MSG_USER_UNASSIGNED
       redirect_to admin_project_path(@project)
     end
 
@@ -68,6 +68,10 @@ module Admin
 
       def find_project
         @project = Project.find_by(slug: params[:slug])
+      end
+
+      def find_user
+        @user = User.find(params[:assign_user])
       end
 
       def project_params

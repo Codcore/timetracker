@@ -1,0 +1,7 @@
+div class="card mt-3 auto"
+  div class="card-header"
+    b = link_to project.name, admin_project_path(project)
+  div class="card-body"   = raw project.description.truncate(500, separator: ' ')
+  div class="card-footer d-flex flex-row-reverse"
+    div class="text-muted date-created" = project.created_at.strftime('%B %e at %l:%M %p')
+    div class="text-muted author_name pr-2" Author: #{project.author.name} #{project.author.surname}  |
