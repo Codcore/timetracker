@@ -7,7 +7,7 @@ div class="card mt-3 auto"
       li class="nav-item"
         = link_to "Description", admin_project_path(@project), class: "nav-link #{active_link(:projects)}"
       li class="nav-item"
-        = link_to "Users", admin_project_projects_users_path(@project), class: "nav-link #{active_link(:projects_users)}"
+        = link_to "Members", admin_project_projects_users_path(@project), class: "nav-link #{active_link(:projects_users)}"
       li class="nav-item"
         = link_to "Tasks", "#", class: "nav-link"
 
