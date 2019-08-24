@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_224927) do
+ActiveRecord::Schema.define(version: 2019_08_24_102259) do
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -29,6 +29,22 @@ ActiveRecord::Schema.define(version: 2019_08_21_224927) do
     t.index ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id", unique: true
   end
 
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.date "start_date"
+    t.date "due_date"
+    t.string "type", null: false
+    t.integer "priority"
+    t.string "complete_hours"
+    t.bigint "performer_id"
+    t.bigint "author_id"
+    t.bigint "project_id"
+    t.index ["author_id"], name: "index_tasks_on_author_id"
+    t.index ["performer_id"], name: "index_tasks_on_performer_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "surname", null: false
@@ -42,4 +58,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_224927) do
   end
 
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users", column: "author_id"
+  add_foreign_key "tasks", "users", column: "performer_id"
 end
