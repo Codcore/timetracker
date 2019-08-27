@@ -37,4 +37,8 @@
         th scope="col" Completion hours
         td = @task.complete_hours
 
-= render template: 'layouts/task'
+      tr
+        th scope="col" Estimated hours
+        td = @task.time_logs.inject(0) { |hours, record| hours + record.hours }
+
+= render template: 'layouts/task_card'

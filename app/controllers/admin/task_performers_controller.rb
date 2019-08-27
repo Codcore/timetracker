@@ -5,7 +5,6 @@ module Admin
     def create
       @task.performer = User.find(params[:performer_id])
       @task.save
-      p @task.errors
       redirect_back fallback_location: admin_task_path(@task)
     end
 

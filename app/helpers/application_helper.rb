@@ -16,6 +16,7 @@ module ApplicationHelper
   end
 
   def badge_for(type)
+    return if type.nil?
     content_tag(:span, type.to_s, class: "badge badge-pill #{BADGE_TYPES[type.to_sym]} mr-3 float-right")
   end
 end

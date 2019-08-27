@@ -5,6 +5,7 @@ RSpec.describe Task, type: :model do
   it { should belong_to :author }
   it { should belong_to(:performer).optional }
   it { should belong_to :project }
+  it { should have_many(:time_logs).dependent(:destroy) }
 
   it { should define_enum_for(:priority).with_values(hot: 3, high: 2, normal: 1) }
   it { should define_enum_for(:task_type).with_values(feature: 0, bug: 1) }

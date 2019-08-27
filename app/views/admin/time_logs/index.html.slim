@@ -1,0 +1,37 @@
+= content_for :task_content
+  h5.card-title Add time record for task
+
+  .m-3
+    = render 'shared/errors', resource: @time_log
+    div class="card p-3"
+      = bootstrap_form_for [:admin, :task, @time_log], class: "form-inline" do |form|
+        .form-row
+          .col-2
+            = form.number_field :hours, class: "form-control-sm"
+          .col-10
+            = form.text_field :commentary, class: "form-control-sm"
+        .form-row
+          .col
+            = form.submit "Add time log record", class: "btn btn-sm btn-success"
+
+  - unless @time_logs.empty?
+    div class = "row m-3"
+      table class="table table-bordered"
+        thead
+          tr
+            th scope="col" #
+            th scope="col" Hours spent
+            th scope="col" Registered at
+            th scope="col" Commentary
+            th scope="col" Delete record
+
+        tbody
+          - @time_logs.each.with_index(1) do |record, index|
+            tr
+              th scope="row" = index
+              td = record.hours
+              td = record.created_at.strftime('%B %e at %l:%M %p')
+              td = record.commentary
+              td = link_to "Delete record", admin_time_log_path(record), class: "btn btn-sm btn-danger", method: :delete
+
+= render template: 'layouts/task_card'
