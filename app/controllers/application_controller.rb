@@ -11,8 +11,24 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, alert: 'You should be logged in to access this page.' if current_user.nil?
   end
 
-  def active_link(item)
-    controller = controller_name.to_sym
-    "active" if controller == item.to_sym
+  def active_link(hash_params={})
+    controller = hash_params.fetch(:controller, nil)
+    action = hash_params.fetch(:action, nil)
+    p controller_name
+    p controller
+    p action
+    verify = []
+
+    if controller
+      controller_name == controller.to_s ? verify.push(true) : verify.push(false)
+    end
+
+    if action
+      action_name == action.to_s ? verify.push(true) : verify.push(false)
+    end
+
+    p verify
+
+    "active" if verify.all? { |item| item }
   end
 end
