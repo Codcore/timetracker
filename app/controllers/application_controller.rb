@@ -14,9 +14,6 @@ class ApplicationController < ActionController::Base
   def active_link(hash_params={})
     controller = hash_params.fetch(:controller, nil)
     action = hash_params.fetch(:action, nil)
-    p controller_name
-    p controller
-    p action
     verify = []
 
     if controller
@@ -26,8 +23,6 @@ class ApplicationController < ActionController::Base
     if action
       action_name == action.to_s ? verify.push(true) : verify.push(false)
     end
-
-    p verify
 
     "active" if verify.all? { |item| item }
   end

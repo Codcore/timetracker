@@ -2,7 +2,7 @@ module Admin
   class TasksController < AdminController
 
     before_action :find_project, only: %i(index new create)
-    before_action :find_task, only: %i(destroy edit update show)
+    before_action :find_task, only: %i(destroy edit update show summary)
 
     def index
       @task = Task.new
@@ -40,10 +40,15 @@ module Admin
       Task.destroy(@task.id)
     end
 
+    def summary
+      show
+      render 'summary'
+    end
+
     private
 
        def find_task
-        @task = Task.find_by(params[:id])
+        @task = Task.find(params[:id])
        end
 
       def find_project

@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :projects, param: :slug do
       resources :projects_users, only: [:index, :create, :destroy], path: 'assignments', param: :user_id
-      resources :tasks, shallow: true
+      resources :tasks, shallow: true do
+        member do
+          get :summary
+        end
+      end
     end
   end
 end

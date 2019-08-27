@@ -1,32 +1,4 @@
-= content_for :pane_content
-  div class="row justify-content-center mt-3"
-    h2 = @task.name
-  .row
-    div class="card m-3 auto w-100"
-      div class="card-header"
-        ul class="nav nav-tabs card-header-tabs" id="pojectTab" role="tablist"
-          li class="nav-item"
-            = link_to "Description", admin_task_path(@project), class: "nav-link #{active_link(controller: :tasks)}"
-          li class="nav-item"
-            = link_to "Summary", admin_project_projects_users_path(@project), class: "nav-link #{active_link(controller: :projects_users)}"
-          li class="nav-item"
-            = link_to "Time log", admin_project_tasks_path(@project), class: "nav-link #{active_link(controller: :time_logs)}"
+= content_for :task_content
+  = raw @task.description
 
-      div class="card-body"
-
-        = raw @task.description
-
-      div class="card-footer"
-        = link_to "Delete task", "#{admin_task_path(@task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete, remote: true
-        = link_to "Edit task", "#{edit_admin_task_path(@task)}", class: "btn btn-sm btn-info mr-3 float-right"
-        div class="dropdown show"
-          a class="btn btn-warning dropdown-toggle btn-sm mr-3 float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" = !!@task.performer ? @task.performer : "Assign performer"
-
-
-          div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-            - @task.project.users.each do |user|
-              a class="dropdown-item" href="#" #{user}
-
-        div class="text-muted" = @task.created_at.strftime('%B %e at %l:%M %p')
-
-= render template: 'layouts/project_card'
+= render template: 'layouts/task'

@@ -14,4 +14,6 @@ RSpec.describe Task, type: :model do
   it { should validate_presence_of :task_type }
   it { should validate_presence_of(:author).on(:create) }
   it { should validate_presence_of(:project).on(:create) }
+  it { should validate_presence_of :start_date }
+  it { should validate_presence_of :due_date }
 end
