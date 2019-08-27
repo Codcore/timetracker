@@ -1,25 +1,40 @@
 = content_for :task_content
   table class="table table-bordered"
-    thead
-      tr
-        th scope="col" Name
-        th scope="col" Start date
-        th scope="col" Due date
-        th scope="col" Type
-        th scope="col" Priority
-        th scope="col" Author
-        th scope="col" Created at
-        th scope="col" Performer
-        th scope="col" Completion hours
     tbody
       tr
+        th scope="col" Name
         td = @task.name
+
+      tr
+        th scope="col" Start date
         td = @task.start_date.strftime('%B %e at %l:%M %p')
+
+      tr
+        th scope="col" Due date
         td = @task.due_date.strftime('%B %e at %l:%M %p')
-        td = @task.task_type
-        td = @task.priority
+
+      tr
+        th scope="col" Type
+        td = badge_for(@task.task_type)
+
+      tr
+        th scope="col" Priority
+        td = badge_for(@task.priority)
+
+      tr
+        th scope="col" Author
         td = @task.author.to_s
+
+      tr
+        th scope="col" Created at
         td = @task.created_at.strftime('%B %e at %l:%M %p')
+
+      tr
+        th scope="col" Performer
         td = @task.performer.to_s
+
+      tr
+        th scope="col" Completion hours
         td = @task.complete_hours
+
 = render template: 'layouts/task'

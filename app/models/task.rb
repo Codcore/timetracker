@@ -3,7 +3,7 @@ class Task < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   belongs_to :project
 
-  enum task_type: %w(feature bug)
+  enum task_type: { feature: 0, bug: 1 }
   enum priority: { hot: 3, high: 2, normal: 1 }
 
   validates :name, presence: true, length: { maximum: 140 }
@@ -12,4 +12,8 @@ class Task < ApplicationRecord
   validates :start_date, :due_date, presence: true
 
   default_scope { order(created_at: :desc) }
+
+  def badges
+    [self.task_type, self.priority].compact
+  end
 end

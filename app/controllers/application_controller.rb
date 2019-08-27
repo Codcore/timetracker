@@ -26,4 +26,5 @@ class ApplicationController < ActionController::Base
 
     "active" if verify.all? { |item| item }
   end
+
 end

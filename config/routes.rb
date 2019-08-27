@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :projects, param: :slug do
       resources :projects_users, only: [:index, :create, :destroy], path: 'assignments', param: :user_id
       resources :tasks, shallow: true do
+        resource :task_performer, only: [:create, :destroy]
         member do
           get :summary
         end

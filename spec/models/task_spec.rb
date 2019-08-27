@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
 
   it { should belong_to :author }
-  it { should belong_to :performer }
+  it { should belong_to(:performer).optional }
   it { should belong_to :project }
 
   it { should define_enum_for(:priority).with_values(hot: 3, high: 2, normal: 1) }
-  it { should define_enum_for(:task_type).with_values(["feature", "bug"]).backed_by_column_of_type(:string) }
+  it { should define_enum_for(:task_type).with_values(feature: 0, bug: 1) }
 
   it { should validate_presence_of :name }
   it { should validate_length_of(:name).is_at_most(140) }
