@@ -1,0 +1,6 @@
+= content_for :pane_content
+  .errors
+    = render 'shared/errors', resource: @task
+  = render 'edit_form'
+
+= render template: 'layouts/project_card'

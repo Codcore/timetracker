@@ -1,0 +1,7 @@
+$('.errors').html('<%= render 'shared/errors', resource: @task %>')
+<%  if @task.persisted? %>
+  $('.task-form').hide()
+  $('.add-task-btn').toggle()
+  $('form').get(0).reset()
+  $('<%= j render @task %>').hide().appendTo('.pane').fadeIn('slow')
+<% end %>

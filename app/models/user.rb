@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def to_param
     id.to_s
   end
+
+  def to_s
+    "#{self.name} #{self.surname}"
+  end
 end

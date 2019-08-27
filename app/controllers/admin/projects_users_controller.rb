@@ -5,8 +5,8 @@ module Admin
 
     include Messages::ProjectsUsersMessages
 
-    before_action :find_project, only: %w(create destroy index)
-    before_action :find_user, only: %w(destroy create)
+    before_action :find_project, only: %i(create destroy index)
+    before_action :find_user, only: %i(destroy create)
 
     def index
       @users_array = User.programmers.where.not(id: @project.users.pluck(:id)).map { |user| ["#{user.name} #{user.surname}", user.id] }

@@ -4,6 +4,7 @@ class Project < ApplicationRecord
 
   belongs_to :author, class_name: "User", foreign_key: :user_id
   has_and_belongs_to_many :users
+  has_many :tasks, dependent: :destroy
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true, on: :save

@@ -1,0 +1,8 @@
+= content_for :pane_content do
+  div class="row"
+    = link_to "Add task to the project", new_admin_project_task_path, class: "btn btn-sm btn-success ml-3 float-right add-task-btn"
+  .errors
+  = render 'admin/tasks/new_form'
+  = render @tasks
+
+= render template: 'layouts/project_card'

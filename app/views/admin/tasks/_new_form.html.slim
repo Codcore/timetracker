@@ -1,0 +1,25 @@
+.task-form style="display: none"
+  div class="card p-3"
+    = bootstrap_form_for [ :admin, :project, @task ], class: "new-task", data: { remote: true } do |form|
+      h5.card-title New task
+
+      = form.text_field :name, class: "form-control-sm font-weight-bold"
+      = form.text_area :description, class: "tinymce", rows: 15, cols: 60
+      .form-row
+        .col
+          = form.date_field :start_date, class: "form-control-sm"
+        .col
+          = form.date_field :due_date, class: "form-control-sm"
+
+      = form.form_group :types, label: { text: "Select task type" } do
+        - Task::task_types.each do |key, value|
+          = form.radio_button :task_type, key.to_s, label: key.to_s
+
+      = form.form_group :priority, label: { text: "Select task priority" } do
+        - Task::priorities.each do |key, value|
+          = form.radio_button :priority, key.to_s, label: key.to_s
+      = form.number_field :complete_hours, class: "form-control-sm col-1"
+
+      = form.submit "Add task", class: "btn btn-success"
+
+= tinymce

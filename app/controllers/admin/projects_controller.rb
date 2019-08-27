@@ -6,7 +6,7 @@ module Admin
     include Messages::ProjectsMessages
     include ProjectsHelper
 
-    before_action :find_project, only: %w(show destroy edit update)
+    before_action :find_project, only: %i(show destroy edit update)
 
     def index
       @projects = Project.all.includes(:author).paginate(page: params[:page], per_page: 10)

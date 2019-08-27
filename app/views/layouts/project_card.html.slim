@@ -9,7 +9,7 @@ div class="card mt-3 auto"
       li class="nav-item"
         = link_to "Members", admin_project_projects_users_path(@project), class: "nav-link #{active_link(:projects_users)}"
       li class="nav-item"
-        = link_to "Tasks", "#", class: "nav-link"
+        = link_to "Tasks", admin_project_tasks_path(@project), class: "nav-link #{active_link(:tasks)}"
 
 
   div class="card-body pane"
@@ -17,6 +17,7 @@ div class="card mt-3 auto"
     = yield :pane_content
 
   div class="card-footer"
-    = link_to "Edit", edit_admin_project_path(@project), class: "btn btn-sm btn-info mr-3 float-right"
+    - unless action_name == "edit"
+      = link_to "Edit description", edit_admin_project_path(@project), class: "btn btn-sm btn-info mr-3 float-right"
     = link_to "Delete", admin_project_path(@project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
     span class="text-muted date-created" = @project.created_at.strftime('%B %e at %l:%M %p')
