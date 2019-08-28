@@ -1,0 +1,7 @@
+h1 Hi, #{@user.name}!
+
+p Task "#{@task.name}" was updated:
+
+- @updates.each do |attribute, values|
+  <p><b>#{attribute.humanize(capitalize: true)} </b> was changed from #{values[0]} to #{values[1]}</p>
+

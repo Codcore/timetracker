@@ -14,7 +14,19 @@ class Task < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  before_save :before_save_send_emails
+
   def badges
     [self.task_type, self.priority].compact
+  end
+
+  private
+
+  def before_save_send_emails
+    return unless changed?
+
+    [author, performer].compact.each do |user|
+      TaskMailer.with(user: user, task: self, updates: changes.to_json).update_email.deliver_later
+    end
   end
 end
