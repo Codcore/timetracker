@@ -1,9 +1,9 @@
 require "rails_helper"
 
-feature "Administrator can assign users to the project", %q{
-  In order to be able to show user the project
+feature "Administrator can create comments for project", %q{
+  In order to be able discuss the project
   As an administrator
-  I'd like to assign user to the project
+  I'd like to add comments for project
 } do
 
   let!(:admin) { create(:user, :admin) }

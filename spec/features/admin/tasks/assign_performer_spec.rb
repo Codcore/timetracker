@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Administrator can assign users for tasks', %q{
+feature "Administrator can assign users for tasks", %q{
   In order to be able to delegate user for task
   As an administrator
   I'd like to assign task performer

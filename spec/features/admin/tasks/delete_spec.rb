@@ -1,9 +1,9 @@
 require "rails_helper"
 
-feature "Administrator can create tasks for the project", %q{
-  In order to be able to add task for project
+feature "Administrator can delete tasks for the project", %q{
+  In order to be able to remove task from project
   As an administrator
-  I'd like to create a new task
+  I'd like to delete a task from project
 } do
 
   let!(:admin) { create(:user, :admin) }
