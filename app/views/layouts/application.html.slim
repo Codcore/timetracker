@@ -10,7 +10,10 @@ html
 
   body
 
-    = render 'shared/nav'
+    - if current_user.admin?
+      = render 'shared/admin/admin_nav'
+    - else
+      = render 'shared/nav'
 
     .container
       = render 'shared/flash'
