@@ -34,11 +34,11 @@
         td = @task.performer.to_s
 
       tr
-        th scope="col" Completion hours
+        th scope="col" Estimated hours
         td = @task.complete_hours
 
       tr
-        th scope="col" Estimated hours
+        th scope="col" Spent hours
         td = @task.time_logs.inject(0) { |hours, record| hours + record.hours }
 
 = render template: 'layouts/task_card'
