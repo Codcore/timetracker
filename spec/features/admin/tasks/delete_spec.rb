@@ -34,7 +34,7 @@ feature "Administrator can delete tasks for the project", %q{
       click_on "Delete task"
     end
 
-    sleep 0.5
+    sleep 1
 
     expect(page).not_to have_css ".task-#{task.id}"
   end

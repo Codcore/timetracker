@@ -31,7 +31,7 @@ feature "Administrator can update projects", %q{
     fill_in "Description", with: ""
     click_on "Update project"
 
-    expect(page).to have_content "Name can\"t be blank"
+    expect(page).to have_content "Name can\'t be blank"
   end
 end
 

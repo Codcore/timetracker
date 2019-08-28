@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
 
+  let!(:user) { create(:user) }
+  let!(:project) { create(:project, author: user) }
+  let!(:task) { create(:task, project: project, author: user) }
+
   it { should belong_to :author }
   it { should belong_to(:performer).optional }
   it { should belong_to :project }
@@ -17,4 +21,16 @@ RSpec.describe Task, type: :model do
   it { should validate_presence_of(:project).on(:create) }
   it { should validate_presence_of :start_date }
   it { should validate_presence_of :due_date }
+
+  describe "#before_save_send_emails" do
+    it "sends email to author and performer" do
+      with_double = double()
+      expect(TaskMailer).to receive(:with).twice.and_return(with_double)
+      expect(with_double).to receive(:update_email).twice.and_return(with_double)
+      expect(with_double).to receive(:deliver_later).twice
+
+      task.name = "New name"
+      task.save
+    end
+  end
 end

@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Administrator can edit tasks for the project", %q{
   In order to be able to change task for project
   As an administrator
-  I"d like to edit project task
+  I'd like to edit project task
 } do
 
   let!(:admin) { create(:user, :admin) }
@@ -95,8 +95,6 @@ feature "Administrator can edit tasks for the project", %q{
 
       sleep 0.5
     end
-
-    save_and_open_screenshot
 
     expect(page).to have_css(".task-errors")
   end

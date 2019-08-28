@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Administrator can delete projects', %q{
+feature "Administrator can delete projects", %q{
   In order to be able to remove old projects,
   As an administrator
   I'd like to delete project
@@ -14,9 +14,9 @@ feature 'Administrator can delete projects', %q{
     visit admin_project_path(project)
   end
 
-  scenario 'Administrator deletes project', js: true do
+  scenario "Administrator deletes project", js: true do
     accept_confirm do
-      click_link 'Delete'
+      click_link "Delete"
     end
 
     expect(current_path).to eq admin_projects_path

@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Administrator can unassign users to the project', %q{
+feature "Administrator can unassign users to the project", %q{
   In order to be able to unassign user from the project
   As an administrator
   I'd like to unassign user from the project
@@ -17,13 +17,13 @@ feature 'Administrator can unassign users to the project', %q{
     sign_in admin
   end
 
-  scenario 'Administrator assigns user to the project' do
+  scenario "Administrator assigns user to the project" do
     name_1 = "#{user_1.name} #{user_1.surname}"
     name_2 = "#{user_2.name} #{user_2.surname}"
     default_option = "Select user to assign to the project..."
 
     visit admin_project_path(project)
-    click_on 'Members'
+    click_on "Members"
 
     expect(page).to have_select(:options => [name_1, name_2, default_option])
 

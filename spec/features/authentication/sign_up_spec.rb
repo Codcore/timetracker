@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'User can register an account', %q{
+feature "User can register an account", %q{
   In order to be able create and manipulate projects and tasks,
   As a guest
   I'd like to create personal account
@@ -10,21 +10,21 @@ feature 'User can register an account', %q{
     visit new_user_path
   end
 
-  scenario 'User creates account' do
-    fill_in 'Name', with: 'Andrew'
-    fill_in 'Surname', with: 'Yaroschuk'
-    fill_in 'Email', with: 'user@email.com'
-    fill_in 'Password', with: '123456'
-    fill_in 'Password confirmation', with: '123456'
+  scenario "User creates account" do
+    fill_in "Name", with: "Andrew"
+    fill_in "Surname", with: "Yaroschuk"
+    fill_in "Email", with: "user@email.com"
+    fill_in "Password", with: "123456"
+    fill_in "Password confirmation", with: "123456"
 
-    click_on 'Sign up'
+    click_on "Sign up"
 
     expect(page).to have_content("Account successfully created. Now you can log in.")
     expect(current_path).to eq(login_path)
   end
 
-  scenario 'User creates account with errors' do
-    click_on 'Sign up'
+  scenario "User creates account with errors" do
+    click_on "Sign up"
 
     expect(page).to have_content("Name can\'t be blank")
     expect(page).to have_content("Email can\'t be blank")
