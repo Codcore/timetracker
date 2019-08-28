@@ -2,7 +2,7 @@
   div class="row justify-content-center mt-3"
     h2 = @task.name
   .row
-    div class="card m-3 auto w-100 task-#{task.id}"
+    div class="card m-3 auto w-100 task-#{task.id} task-header"
       div class="card-header"
         - @task.badges.each do |badge|
           = badge_for(badge)
@@ -15,7 +15,7 @@
           li class="nav-item"
             = link_to "Time log",  admin_task_time_logs_path(@task), class: "nav-link #{active_link(controller: :time_logs)}"
 
-      div class="card-body"
+      div class="card-body task-content"
 
         = yield :task_content
 

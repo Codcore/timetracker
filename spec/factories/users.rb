@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user do
+  factory :user, aliases: [:author, :performer] do
     sequence(:name) { |n| "MyString#{n}" }
     surname { "MyString" }
     date_of_birth { "2019-08-20" }

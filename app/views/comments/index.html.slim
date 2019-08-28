@@ -3,8 +3,8 @@
 
   = render 'comments/form'
 
+  .project-comments
   - if @project.comments.any?
-    .project-comments
-      = render partial: 'comments/comment', collection: @project.comments
+    = render partial: 'comments/comment', collection: @project.comments
 
 = render template: 'layouts/project_card'

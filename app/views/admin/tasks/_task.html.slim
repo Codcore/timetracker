@@ -1,5 +1,5 @@
 .row
-  div class="card m-3 auto task-#{task.id} w-100"
+  div class="card m-3 auto task-#{task.id} w-100 task-header"
     div class="card-header"
       b = link_to task.name, admin_task_path(task), class: "mr-2"
       span class="badge badge-secondary" #{task.author}
@@ -7,9 +7,9 @@
       - task.badges.each do |badge|
         = badge_for(badge)
 
-    div class="card-body"
+    div class="card-body task-content"
 
-      = raw task.description
+      = raw task.description.truncate(240, separator: ' ')
 
     div class="card-footer"
       = link_to "Delete task", "#{admin_task_path(task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete, remote: true

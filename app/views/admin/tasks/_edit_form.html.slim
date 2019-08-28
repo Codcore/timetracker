@@ -18,7 +18,8 @@
       = form.form_group :priority, label: { text: "Select task priority" } do
         - Task::priorities.each do |key, value|
           = form.radio_button :priority, key.to_s, label: key.to_s
-      = form.number_field :complete_hours, class: "form-control-sm col-1"
+
+      = form.number_field :complete_hours, class: "form-control-sm col-1", label: { text: "Estimated hours" }
 
       = form.submit "Save task", class: "btn btn-success"
 

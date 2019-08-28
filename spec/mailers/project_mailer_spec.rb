@@ -1,5 +1,5 @@
 require "rails_helper"
 
-RSpec.describe ProjectMailer, type: :mailer do
+RSpec.describe TaskMailer, type: :mailer do
   pending "add some examples to (or delete) #{__FILE__}"
 end

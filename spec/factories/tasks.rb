@@ -1,14 +1,17 @@
 FactoryBot.define do
   factory :task do
-    name { "MyString" }
+    sequence :name do |n|
+      "MyString#{n}"
+    end
+
     description { "MyString" }
     start_date { "2019-08-24" }
     due_date { "2019-08-24" }
-    type { "" }
-    priority { "MyString" }
-    complete_hours { "MyString" }
-    performer { nil }
-    author { nil }
-    project { nil }
+    type { "bug" }
+    priority { "normal" }
+    complete_hours { 30 }
+    performer { performer }
+    author { author }
+    project { project }
   end
 end
