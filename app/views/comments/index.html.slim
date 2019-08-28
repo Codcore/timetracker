@@ -1,0 +1,10 @@
+= content_for :pane_content
+  .comment-errors
+
+  = render 'comments/form'
+
+  - if @project.comments.any?
+    .project-comments
+      = render partial: 'comments/comment', collection: @project.comments
+
+= render template: 'layouts/project_card'

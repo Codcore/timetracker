@@ -1,0 +1,5 @@
+$('.comment-errors').html('<%= render 'shared/errors', resource: @comment %>')
+<% if @comment.persisted? %>
+  $('<%= j render 'comments/comment', comment: @comment %>').appendTo('.project-comments').hide().show('fadeIn')
+  $('form').get(0).reset()
+<% end %>
