@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  before_action :authenticate_user!, only: :destroy
+
   def new
   end
 
@@ -7,11 +10,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id.to_s
-      if @user.admin?
-        redirect_to admin_projects_path, notice: "Welcome, administrator #{@user.name} #{@user.surname}!"
-      else
-        redirect_to root_path, notice: "Welcome, #{@user.name} #{@user.surname}!"
-      end
+      redirect_to root_path, notice: "Welcome, #{@user.name} #{@user.surname}!"
     else
       flash[:error] = "Wrong email and password combination"
       render :new

@@ -1,6 +1,6 @@
 .task-form
   div class="card p-3"
-    = bootstrap_form_for [ :admin, @task ], class: "edit-task" do |form|
+    = bootstrap_form_for [ @task ], class: "edit-task" do |form|
       h5.card-title Edit task
 
       = form.text_field :name, class: "form-control-sm font-weight-bold"

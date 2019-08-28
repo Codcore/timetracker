@@ -5,13 +5,13 @@ div class="card mt-3 auto"
   div class="card-header"
     ul class="nav nav-tabs card-header-tabs" id="pojectTab" role="tablist"
       li class="nav-item"
-        = link_to "Description", admin_project_path(@project), class: "nav-link #{active_link(controller: :projects)}"
+        = link_to "Description", project_path(@project), class: "nav-link #{active_link(controller: :projects)}"
       li class="nav-item"
-        = link_to "Members", admin_project_projects_users_path(@project), class: "nav-link #{active_link(controller: :projects_users)}"
+        = link_to "Members", project_projects_users_path(@project), class: "nav-link #{active_link(controller: :projects_users)}"
       li class="nav-item"
-        = link_to "Tasks", admin_project_tasks_path(@project), class: "nav-link #{active_link(controller: :tasks)}"
+        = link_to "Tasks", project_tasks_path(@project), class: "nav-link #{active_link(controller: :tasks)}"
       li class="nav-item"
-        = link_to "Comments", admin_project_comments_path(@project), class: "nav-link #{active_link(controller: :comments)}"
+        = link_to "Comments", project_comments_path(@project), class: "nav-link #{active_link(controller: :comments)}"
 
 
   div class="card-body pane"
@@ -19,7 +19,8 @@ div class="card mt-3 auto"
     = yield :pane_content
 
   div class="card-footer"
-    - unless action_name == "edit"
-      = link_to "Edit description", edit_admin_project_path(@project), class: "btn btn-sm btn-info mr-3 float-right"
-    = link_to "Delete", admin_project_path(@project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
+    - if user_admin?
+      - if action_name != "edit"
+        = link_to "Edit description", edit_project_path(@project), class: "btn btn-sm btn-info mr-3 float-right"
+      = link_to "Delete", project_path(@project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
     span class="text-muted date-created" = @project.created_at.strftime('%B %e at %l:%M %p')

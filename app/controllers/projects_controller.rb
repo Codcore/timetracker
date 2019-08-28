@@ -2,8 +2,19 @@ class ProjectsController < ApplicationController
 
   before_action :find_project, only: %i(show destroy edit update)
 
+  before_action :authenticate_user!
+  before_action :authenticate_admin!, only: %i(new create edit update destroy)
+
   def index
-    @projects = Project.all.includes(:author).paginate(page: params[:page], per_page: 10)
+    if current_user.admin?
+      @projects = Project.all
+                      .includes(:author)
+                      .paginate(page: params[:page], per_page: 10)
+    else
+      @projects = current_user.projects
+                      .includes(:author)
+                      .paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def show; end
@@ -18,7 +29,7 @@ class ProjectsController < ApplicationController
 
     if @project.save
       flash[:notice] = MSG_PROJECT_CREATED
-      redirect_to admin_project_path(@project)
+      redirect_to @project
     else
       render :new
     end
@@ -29,7 +40,7 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       flash[:notice] = MSG_PROJECT_UPDATED
-      redirect_to admin_project_path(@project)
+      redirect_to @project
     else
       render :edit
     end
@@ -37,7 +48,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to admin_projects_path
+    redirect_to projects_path
   end
 
   private

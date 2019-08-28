@@ -4,7 +4,7 @@
   .m-3
     = render 'shared/errors', resource: @time_log
     div class="card p-3"
-      = bootstrap_form_for [:admin, :task, @time_log], class: "form-inline" do |form|
+      = bootstrap_form_for [:task, @time_log], class: "form-inline" do |form|
         .form-row
           .col-2
             = form.number_field :hours, class: "form-control-sm"
@@ -23,7 +23,8 @@
             th scope="col" Hours spent
             th scope="col" Registered at
             th scope="col" Commentary
-            th scope="col" Delete record
+            - if user_admin?
+              th scope="col" Delete record
 
         tbody
           - @time_logs.each.with_index(1) do |record, index|
@@ -32,6 +33,7 @@
               td = record.hours
               td = record.created_at.strftime('%B %e at %l:%M %p')
               td = record.commentary
-              td = link_to "Delete record", admin_time_log_path(record), class: "btn btn-sm btn-danger", method: :delete
+              - if user_admin?
+                td = link_to "Delete record", time_log_path(record), class: "btn btn-sm btn-danger", method: :delete
 
 = render template: 'layouts/task_card'

@@ -3,6 +3,9 @@ class TimeLogsController < ApplicationController
   before_action :find_task, only: [:index, :create]
   before_action :find_time_log, only: [:destroy]
 
+  before_action :authenticate_user!
+  before_action :authenticate_admin!, only: %i(destroy)
+
   def index
     @project = @task.project
     @time_log = TimeLog.new
@@ -13,7 +16,7 @@ class TimeLogsController < ApplicationController
     @time_log = @task.time_logs.new(time_log_params)
 
     if @time_log.save
-      redirect_back fallback_location: admin_task_time_logs_path(@time_log.task)
+      redirect_back fallback_location: task_time_logs_path(@time_log.task)
     else
       @project = @time_log.task.project
       @time_logs = TimeLog.all.where(task_id: @task.id)
@@ -23,7 +26,7 @@ class TimeLogsController < ApplicationController
 
   def destroy
     @time_log.destroy
-    redirect_back fallback_location: admin_task_time_logs_path(@time_log.task)
+    redirect_back fallback_location: task_time_logs_path(@time_log.task)
   end
 
   private

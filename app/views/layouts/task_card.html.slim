@@ -9,31 +9,18 @@
 
         ul class="nav nav-tabs card-header-tabs" id="pojectTab" role="tablist"
           li class="nav-item"
-            = link_to "Description", admin_task_path(@task), class: "nav-link #{active_link(controller: :tasks, action: :show)}"
+            = link_to "Description", task_path(@task), class: "nav-link #{active_link(controller: :tasks, action: :show)}"
           li class="nav-item"
-            = link_to "Summary", summary_admin_task_path(@task), class: "nav-link #{active_link(controller: :tasks, action: :summary)}"
+            = link_to "Summary", summary_task_path(@task), class: "nav-link #{active_link(controller: :tasks, action: :summary)}"
           li class="nav-item"
-            = link_to "Time log",  admin_task_time_logs_path(@task), class: "nav-link #{active_link(controller: :time_logs)}"
+            = link_to "Time log",  task_time_logs_path(@task), class: "nav-link #{active_link(controller: :time_logs)}"
 
       div class="card-body task-content"
 
         = yield :task_content
 
       div class="card-footer"
-        = link_to "Delete task", "#{admin_task_path(@task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete, remote: true
-        = link_to "Edit task", "#{edit_admin_task_path(@task)}", class: "btn btn-sm btn-info mr-3 float-right"
-
-        - if @task.performer
-          = link_to "Unassign performer: #{@task.performer}", "#{admin_task_task_performer_path(@task)}", class: "btn btn-sm btn-warning mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete
-
-        - else
-
-          div class="dropdown show"
-            a class="btn btn-warning dropdown-toggle btn-sm mr-3 float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" = !!@task.performer ? @task.performer : "Assign performer"
-
-            div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-              - @task.project.users.each do |user|
-                = link_to "#{user}", admin_task_task_performer_path(@task, performer_id: user.id), class: "dropdown-item", method: :post
+        = render 'shared/admin/task_card_buttons' if user_admin?
 
         div class="text-muted" = @task.created_at.strftime('%B %e at %l:%M %p')
 

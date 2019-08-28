@@ -3,6 +3,9 @@ class TasksController < ApplicationController
   before_action :find_project, only: %i(index new create)
   before_action :find_task, only: %i(destroy edit update show summary)
 
+  before_action :authenticate_user!
+  before_action :authenticate_admin!, only: %i(new create destroy)
+
   def index
     @task = Task.new
     @tasks = Task.all.where(project: @project)
@@ -29,7 +32,7 @@ class TasksController < ApplicationController
   def update
     @project = @task.project
     if @task.update(task_params)
-      redirect_to admin_task_path(@task)
+      redirect_to task_path(@task)
     else
       render :edit
     end

@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
 
   before_action :find_project
+
   before_action :authenticate_user!
 
   def index

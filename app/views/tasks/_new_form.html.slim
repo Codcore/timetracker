@@ -1,6 +1,6 @@
 .task-form style="display: none"
   div class="card p-3"
-    = bootstrap_form_for [ :admin, :project, @task ], class: "new-task", data: { remote: true } do |form|
+    = bootstrap_form_for [ :project, @task ], class: "new-task", data: { remote: true } do |form|
       h5.card-title New task
 
       = form.text_field :name, class: "form-control-sm font-weight-bold"

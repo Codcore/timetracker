@@ -1,19 +1,21 @@
 = content_for :pane_content do
-  h5 class="card-title"  Assign users to the project
+  h5 class="card-title" Project members
   |
-  div class="input-group"
-    = bootstrap_form_with url: admin_project_projects_users_path(@project), class: "form-inline" do |form|
-      = form.select(:user_id, @users_array, { hide_label: true, prompt: 'Select user to assign to the project...'}, { class: "form-control-sm" })
-      = form.submit 'Assign user', class: "m-3 btn btn-sm btn-success"
+  - if user_admin?
+    div class="input-group"
+      = bootstrap_form_with url: admin_project_projects_users_path(@project), class: "form-inline" do |form|
+        = form.select(:user_id, @users_array, { hide_label: true, prompt: 'Select user to assign to the project...'}, { class: "form-control-sm" })
+        = form.submit 'Assign user', class: "m-3 btn btn-sm btn-success"
 
-  - if @project.users.any?
-    div class="card mb-3 user-assign"
-      ul class="list-group list-group-flush"
-        li class="list-group-item active" Assigned users
-        - @project.users.each do |user|
-          li class="list-group-item"
-            = user.name + ' ' + user.surname
-            |
-            = link_to 'Unassign user', admin_project_projects_user_path(@project, user), class: "btn btn-sm btn-danger float-right", method: :delete
+    - if @project.users.any?
+      div class="card mb-3 user-assign"
+        ul class="list-group list-group-flush"
+          li class="list-group-item active" Assigned users
+          - @project.users.each do |user|
+            li class="list-group-item"
+              = user.name + ' ' + user.surname
+              |
+              - if user_admin?
+                = link_to 'Unassign user', project_projects_user_path(@project, user), class: "btn btn-sm btn-danger float-right", method: :delete
 
 = render template: 'layouts/project_card'
