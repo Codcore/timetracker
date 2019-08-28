@@ -42,7 +42,7 @@ feature 'Administrator can create tasks for the project', %q{
 
     expect(page).to have_content 'Add task to the project'
 
-    within '.task-header' do
+    within '.task-card' do
       expect(page).to have_content task_name
     end
 
