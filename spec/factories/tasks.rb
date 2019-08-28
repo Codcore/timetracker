@@ -7,11 +7,11 @@ FactoryBot.define do
     description { "MyString" }
     start_date { "2019-08-24" }
     due_date { "2019-08-24" }
-    type { "bug" }
+    task_type { "bug" }
     priority { "normal" }
     complete_hours { 30 }
-    performer { performer }
-    author { author }
-    project { project }
+    performer
+    author
+    project
   end
 end
