@@ -23,7 +23,8 @@ class Task < ApplicationRecord
   private
 
   def before_save_send_emails
-    return unless changed?
+    return unless self.persisted?
+    return if !changed? || performer_id_changed?
 
     [author, performer].compact.each do |user|
       TaskMailer.with(user: user, task: self, updates: changes.to_json).update_email.deliver_later
