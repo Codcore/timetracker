@@ -11,7 +11,7 @@ feature "Administrator can create tasks for the project", %q{
 
   background do
     sign_in admin
-    visit admin_project_path(project)
+    visit project_path(project)
   end
 
   scenario "Administrator creates project", :js do

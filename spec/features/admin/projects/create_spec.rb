@@ -13,7 +13,7 @@ feature "Administrator can create projects", %q{
   end
 
   scenario "Administrator add a new project" do
-    click_on "Add project"
+    click_on "New project"
     expect(page).to have_content("New Project")
 
     fill_in "Name", with: "Test project"
@@ -24,7 +24,7 @@ feature "Administrator can create projects", %q{
   end
 
   scenario "Administrator add a new project with invalid data" do
-    click_on "Add project"
+    click_on "New project"
 
     fill_in "Name", with: ""
     fill_in "Description", with: ""

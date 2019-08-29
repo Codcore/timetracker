@@ -10,7 +10,7 @@ html
 
   body
 
-    - if current_user.admin?
+    - if current_user && current_user.admin?
       = render 'shared/admin/admin_nav'
     - else
       = render 'shared/nav'

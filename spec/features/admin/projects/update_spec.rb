@@ -11,7 +11,7 @@ feature "Administrator can update projects", %q{
 
   background do
     sign_in admin
-    visit admin_project_path(project)
+    visit project_path(project)
     click_on "Edit"
   end
 
@@ -23,7 +23,7 @@ feature "Administrator can update projects", %q{
     expect(page).to have_content "New project name"
     expect(page).to have_content "New project description"
     expect(page).to have_content "Project updated successfully"
-    expect(current_path).to eq admin_project_path(project)
+    expect(current_path).to eq project_path(project)
   end
 
   scenario "Administrator edits project with invalid data" do

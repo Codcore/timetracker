@@ -15,7 +15,7 @@ feature "Administrator can create comments for project", %q{
 
   background do
     sign_in admin
-    visit admin_task_path(task)
+    visit task_path(task)
   end
 
   scenario "Admin adds comment", :js do

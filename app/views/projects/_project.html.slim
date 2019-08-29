@@ -1,15 +1,16 @@
 div class="card mt-3 auto"
   div class="card-body"
     h5 class="card-title"
-      = link_to project.name, admin_project_path(project)
+      = link_to project.name, project_path(project)
     span class="badge badge-secondary" #{project.author}
 
     hr
     = raw project.description.truncate(500, separator: ' ')
 
   div class="card-footer"
-    = link_to "Edit description", edit_admin_project_path(project), class: "btn btn-sm btn-info mr-3 float-right"
-    = link_to "Manage members", admin_project_projects_users_path(project), class: "btn btn-sm btn-warning mr-3 float-right"
-    = link_to "Delete", admin_project_path(project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
+    - if user_admin?
+      = link_to "Edit description", edit_project_path(project), class: "btn btn-sm btn-info mr-3 float-right"
+      = link_to "Manage members", project_projects_users_path(project), class: "btn btn-sm btn-warning mr-3 float-right"
+      = link_to "Delete", project_path(project), class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete
 
     div class="text-muted date-created" = project.created_at.strftime('%B %e at %l:%M %p')

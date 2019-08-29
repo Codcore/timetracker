@@ -1,5 +1,8 @@
 class ProjectsController < ApplicationController
 
+  MSG_PROJECT_CREATED = "Project successfully created"
+  MSG_PROJECT_UPDATED = "Project updated successfully"
+
   before_action :find_project, only: %i(show destroy edit update)
 
   before_action :authenticate_user!

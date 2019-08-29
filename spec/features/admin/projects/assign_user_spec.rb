@@ -22,7 +22,7 @@ feature "Administrator can assign users to the project", %q{
     name_2 = "#{user_2.name} #{user_2.surname}"
     default_option = "Select user to assign to the project..."
 
-    visit admin_project_path(project)
+    visit project_path(project)
     click_on "Members"
 
     expect(page).to have_select(:options => [name_1, name_2, default_option])

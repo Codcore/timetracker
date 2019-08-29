@@ -11,7 +11,7 @@ feature "Administrator can delete projects", %q{
 
   background do
     sign_in admin
-    visit admin_project_path(project)
+    visit project_path(project)
   end
 
   scenario "Administrator deletes project", js: true do
@@ -19,7 +19,7 @@ feature "Administrator can delete projects", %q{
       click_link "Delete"
     end
 
-    expect(current_path).to eq admin_projects_path
+    expect(current_path).to eq projects_path
     expect(page).not_to have_content(project.name)
   end
 end

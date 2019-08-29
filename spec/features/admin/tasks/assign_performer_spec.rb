@@ -14,7 +14,7 @@ feature "Administrator can assign users for tasks", %q{
 
   background do
     sign_in admin
-    visit admin_task_path(task)
+    visit task_path(task)
   end
 
   scenario "Administrator assigns user as a performer", :js do

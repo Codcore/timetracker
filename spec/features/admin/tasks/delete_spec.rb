@@ -12,7 +12,7 @@ feature "Administrator can delete tasks for the project", %q{
 
   background do
     sign_in admin
-    visit admin_task_path(task)
+    visit task_path(task)
   end
 
   scenario "Admin deletes task from tasks view", :js do

@@ -1,7 +1,7 @@
 .row
   div class="card m-3 auto task-#{task.id} w-100 task-card"
     div class="card-header"
-      b = link_to task.name, admin_task_path(task), class: "mr-2"
+      b = link_to task.name, task_path(task), class: "mr-2"
       span class="badge badge-secondary" #{task.author}
 
       - task.badges.each do |badge|
@@ -12,19 +12,7 @@
       = raw task.description.truncate(240, separator: ' ')
 
     div class="card-footer"
-      = link_to "Delete task", "#{admin_task_path(task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: { confirm: "Are you sure?" }, method: :delete, remote: true
-      = link_to "Edit task", "#{edit_admin_task_path(task)}", class: "btn btn-sm btn-info mr-3 float-right"
-
-      - if task.performer
-        = link_to "Unassign performer: #{task.performer}", "#{admin_task_task_performer_path(task)}", class: "btn btn-sm btn-warning mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete
-
-      - else
-
-        div class="dropdown show"
-          a class="btn btn-warning dropdown-toggle btn-sm mr-3 float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" = !!task.performer ? task.performer : "Assign performer"
-
-          div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-            - task.project.users.each do |user|
-              = link_to "#{user}", admin_task_task_performer_path(task, performer_id: user.id), class: "dropdown-item", method: :post
+      = render('shared/admin/task_card_buttons', task: task) if user_admin?
+      = link_to "Edit task", "#{edit_task_path(task)}", class: "btn btn-sm btn-info mr-3 float-right"
 
       div class="text-muted" = task.created_at.strftime('%B %e at %l:%M %p')

@@ -15,7 +15,7 @@ feature "Administrator can delet time log records", %q{
 
   background do
     sign_in admin
-    visit admin_task_path(task)
+    visit task_path(task)
   end
 
   scenario "Admin deletes time log record", :js do

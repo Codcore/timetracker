@@ -1,14 +1,13 @@
-= link_to "Delete task", "#{task_path(@task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete, remote: true
-= link_to "Edit task", "#{edit_task_path(@task)}", class: "btn btn-sm btn-info mr-3 float-right"
+= link_to "Delete task", "#{task_path(task)}", class: "btn btn-sm btn-danger mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete, remote: true
 
-- if @task.performer
-  = link_to "Unassign performer: #{@task.performer}", "#{admin_task_task_performer_path(@task)}", class: "btn btn-sm btn-warning mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete
+- if task.performer
+  = link_to "Unassign performer: #{task.performer}", "#{task_task_performer_path(task)}", class: "btn btn-sm btn-warning mr-3 float-right", data: {confirm: "Are you sure?"}, method: :delete
 
 - else
 
   div class="dropdown show"
-    a class="btn btn-warning dropdown-toggle btn-sm mr-3 float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" = !!@task.performer ? @task.performer : "Assign performer"
+    a class="btn btn-warning dropdown-toggle btn-sm mr-3 float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" = !!task.performer ? task.performer : "Assign performer"
 
     div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
-      - @task.project.users.each do |user|
-        = link_to "#{user}", admin_task_task_performer_path(@task, performer_id: user.id), class: "dropdown-item", method: :post
+      - task.project.users.each do |user|
+        = link_to "#{user}", task_task_performer_path(task, performer_id: user.id), class: "dropdown-item", method: :post

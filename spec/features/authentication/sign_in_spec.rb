@@ -27,8 +27,8 @@ feature "User can login", %q{
     fill_in "Password", with: admin.password
     click_on "Log in"
 
-    expect(page).to have_content "Welcome, administrator #{admin.name} #{admin.surname}!"
-    expect(current_path).to eq(admin_projects_path)
+    expect(page).to have_content "Welcome, #{admin.name} #{admin.surname}!"
+    expect(current_path).to eq(root_path)
   end
 
   scenario "Unregistered user tries to sign in" do

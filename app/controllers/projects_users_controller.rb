@@ -1,5 +1,8 @@
 class ProjectsUsersController < ApplicationController
 
+  MSG_USER_ASSIGNED   = "User was successfully assigned to the project"
+  MSG_USER_UNASSIGNED = "User was successfully unassigned"
+
   before_action :find_project, only: %i(create destroy index)
   before_action :find_user, only: %i(destroy create)
 
@@ -7,7 +10,9 @@ class ProjectsUsersController < ApplicationController
   before_action :authenticate_admin!, only: %i(create destroy)
 
   def index
-    @users_array = User.programmers.where.not(id: @project.users.pluck(:id)).map { |user| ["#{user.name} #{user.surname}", user.id] }
+    @users_array = User.programmers.where
+                       .not(id: @project.users.pluck(:id))
+                       .map { |user| ["#{user.name} #{user.surname}", user.id] }
   end
 
   def create

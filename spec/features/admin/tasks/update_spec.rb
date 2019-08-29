@@ -16,7 +16,7 @@ feature "Administrator can edit tasks for the project", %q{
 
   background do
     sign_in admin
-    visit admin_task_path(task)
+    visit task_path(task)
   end
 
   scenario "Administrator edits project", :js do
