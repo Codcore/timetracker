@@ -1,5 +1,7 @@
 class TaskPerformersController < ApplicationController
 
+  find :task
+
   before_action :find_task
 
   before_action :authenticate_admin!, only: %i(create destroy)
@@ -15,10 +17,4 @@ class TaskPerformersController < ApplicationController
     @task.save
     redirect_back fallback_location: task_path(@task)
   end
-
-  private
-
-    def find_task
-      @task = Task.find(params[:task_id])
-    end
 end

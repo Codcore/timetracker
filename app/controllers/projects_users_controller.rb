@@ -3,6 +3,9 @@ class ProjectsUsersController < ApplicationController
   MSG_USER_ASSIGNED   = "User was successfully assigned to the project"
   MSG_USER_UNASSIGNED = "User was successfully unassigned"
 
+  find :project, :slug
+  find :user
+
   before_action :find_project, only: %i(create destroy index)
   before_action :find_user, only: %i(destroy create)
 
@@ -26,14 +29,4 @@ class ProjectsUsersController < ApplicationController
     flash[:notice] = MSG_USER_UNASSIGNED
     redirect_to project_projects_users_path(@project)
   end
-
-  private
-
-    def find_project
-      @project = Project.find_by(slug: params[:project_slug])
-    end
-
-    def find_user
-      @user = User.find(params.permit(:user_id)[:user_id])
-    end
 end

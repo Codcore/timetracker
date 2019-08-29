@@ -1,5 +1,8 @@
 class TasksController < ApplicationController
 
+  find :project, :slug
+  find :task, :id
+
   before_action :find_project, only: %i(index new create)
   before_action :find_task, only: %i(destroy edit update show summary)
 
@@ -48,14 +51,6 @@ class TasksController < ApplicationController
   end
 
   private
-
-    def find_task
-      @task = Task.find(params[:id])
-    end
-
-    def find_project
-      @project = Project.find_by(slug: params[:project_slug])
-    end
 
     def task_params
       params.require(:task).permit(:name, :description, :start_date, :due_date, :task_type, :priority, :complete_hours)

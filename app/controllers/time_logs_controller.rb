@@ -1,5 +1,8 @@
 class TimeLogsController < ApplicationController
 
+  find :task
+  find :time_log
+
   before_action :find_task, only: [:index, :create]
   before_action :find_time_log, only: [:destroy]
 
@@ -30,14 +33,6 @@ class TimeLogsController < ApplicationController
   end
 
   private
-
-    def find_task
-      @task = Task.find(params[:task_id])
-    end
-
-    def find_time_log
-      @time_log = TimeLog.find(params[:id])
-    end
 
     def time_log_params
       params.require(:time_log).permit(:hours, :commentary)

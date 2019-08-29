@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  find :project, :slug
+
   before_action :find_project
 
   before_action :authenticate_user!
@@ -15,10 +17,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-    def find_project
-      @project = Project.find_by(slug: params[:project_slug])
-    end
 
     def comment_params
       params.require(:comment).permit(:body)

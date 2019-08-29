@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   MSG_PROJECT_CREATED = "Project successfully created"
   MSG_PROJECT_UPDATED = "Project updated successfully"
 
+  find :project, :slug
+
   before_action :find_project, only: %i(show destroy edit update)
 
   before_action :authenticate_user!
@@ -55,10 +57,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-    def find_project
-      @project = Project.find_by(slug: params[:slug])
-    end
 
     def project_params
       params.require(:project).permit(:name, :description)
