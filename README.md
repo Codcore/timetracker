@@ -1,24 +1,22 @@
-# README
+# Timetracker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+With Timetracker you can
 
-Things you may want to cover:
 
-* Ruby version
+## As admin:
 
-* System dependencies
+* Create and edit projects
+* Assign/unassign users to/from project
+* Create tasks for projects
+* Track task's time log records, add and delete them
+* Assign task to user (task performer)
+* Create comments for projects
+* Receive email notifications when your task is updated, with updates details
 
-* Configuration
+## As a user:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Looking through projects you are assigned to
+* Create comments for projects
+* Receive email notifications with updates details when task you're assigned to, is updated
+* Create task's time log records with hours you spent for task, and leave comment for record
+* Edit projects tasks and keep track on task completion
