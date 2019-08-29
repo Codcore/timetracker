@@ -7,83 +7,102 @@ feature "Administrator can create tasks for the project", %q{
 } do
 
   let!(:admin) { create(:user, :admin) }
+  let!(:user) { create(:user) }
+
   let!(:project) { create(:project, author: admin) }
 
-  background do
-    sign_in admin
-    visit project_path(project)
-  end
 
-  scenario "Administrator creates project", :js do
-    task_name = "Test task"
-    task_description = "Test task description"
+  describe "Administrator" do
 
-    click_on "Tasks"
-    click_on "Add task to the project"
+    background do
+      sign_in admin
+      visit project_path(project)
+    end
 
-    within "#new_task" do
-      expect(page).to have_content("New task")
-      fill_in "Name", with: task_name
+    scenario "Creates project", :js do
+      task_name = "Test task"
+      task_description = "Test task description"
 
-      within_frame("task_description_ifr") do
-        editor = page.find_by_id("tinymce")
-        editor.native.send_keys task_description
+      click_on "Tasks"
+      click_on "Add task to the project"
+
+      within "#new_task" do
+        expect(page).to have_content("New task")
+        fill_in "Name", with: task_name
+
+        within_frame("task_description_ifr") do
+          editor = page.find_by_id("tinymce")
+          editor.native.send_keys task_description
+        end
+
+        page.find("#task_start_date").set(Date.today)
+        page.find("#task_due_date").set(Date.tomorrow)
+
+        choose("bug")
+        choose("normal")
+
+        fill_in "Estimated hours", with: 10
+        click_on "Add task"
       end
 
-      page.find("#task_start_date").set(Date.today)
-      page.find("#task_due_date").set(Date.tomorrow)
+      expect(page).to have_content "Add task to the project"
 
-      choose("bug")
-      choose("normal")
-
-      fill_in "Estimated hours", with: 10
-      click_on "Add task"
-    end
-
-    expect(page).to have_content "Add task to the project"
-
-    within ".task-card" do
-      expect(page).to have_content task_name
-    end
-
-    within ".task-content" do
-      expect(page).to have_content task_description
-    end
-
-    within ".badge-danger" do
-      expect(page).to have_content("bug")
-    end
-
-    within ".badge-primary" do
-      expect(page).to have_content("normal")
-    end
-
-    expect(page).to have_content "Edit task"
-    expect(page).to have_content "Delete task"
-  end
-
-  scenario "Administrator creates project with invalid data", :js do
-    task_name = ""
-    task_description = "Test task description"
-
-    click_on "Tasks"
-    click_on "Add task to the project"
-
-    within "#new_task" do
-      expect(page).to have_content("New task")
-      fill_in "Name", with: task_name
-
-      within_frame("task_description_ifr") do
-        editor = page.find_by_id("tinymce")
-        editor.native.send_keys task_description
+      within ".task-card" do
+        expect(page).to have_content task_name
       end
 
-      fill_in "Estimated hours", with: 10
-      click_on "Add task"
+      within ".task-content" do
+        expect(page).to have_content task_description
+      end
 
-      sleep 0.5
+      within ".badge-danger" do
+        expect(page).to have_content("bug")
+      end
+
+      within ".badge-primary" do
+        expect(page).to have_content("normal")
+      end
+
+      expect(page).to have_content "Edit task"
+      expect(page).to have_content "Delete task"
     end
 
-    expect(page).to have_css(".task-errors")
+    scenario "Creates project with invalid data", :js do
+      task_name = ""
+      task_description = "Test task description"
+
+      click_on "Tasks"
+      click_on "Add task to the project"
+
+      within "#new_task" do
+        expect(page).to have_content("New task")
+        fill_in "Name", with: task_name
+
+        within_frame("task_description_ifr") do
+          editor = page.find_by_id("tinymce")
+          editor.native.send_keys task_description
+        end
+
+        fill_in "Estimated hours", with: 10
+        click_on "Add task"
+
+        sleep 0.5
+      end
+
+      expect(page).to have_css(".task-errors")
+    end
+  end
+
+  describe "User" do
+
+    background do
+      sign_in user
+      visit project_path(project)
+    end
+
+    scenario "Can't create a task" do
+      click_on "Tasks"
+      expect(page).not_to have_content"Add task to the project"
+    end
   end
 end

@@ -7,65 +7,114 @@ feature "Administrator can add time log records", %q{
 } do
 
   let!(:admin) { create(:user, :admin) }
+  let!(:user) { create(:user) }
+
   let!(:project) { create(:project, author: admin) }
   let!(:task) { create(:task, author: admin, project: project) }
 
   let!(:comment) { "Time log record comment" }
   let!(:hours) { 5 }
 
-  background do
-    sign_in admin
-    visit task_path(task)
-  end
 
-  scenario "Admin adds time log record", :js do
+  describe "Administrator" do
 
-    click_on "Time log"
-
-    fill_in "Hours", with: hours
-    fill_in "Commentary", with: comment
-    click_on "Add time log record"
-
-    sleep 0.5
-
-    within "table" do
-      expect(page).to have_content(comment)
-      expect(page).to have_content(hours)
-      expect(page).to have_content("Delete")
+    background do
+      sign_in admin
+      visit task_path(task)
     end
 
-    click_on "Summary"
+    scenario "Adds time log record", :js do
 
-    within "table" do
-      expect(page).to have_content(hours)
+      click_on "Time log"
+
+      fill_in "Hours", with: hours
+      fill_in "Commentary", with: comment
+      click_on "Add time log record"
+
+      sleep 0.5
+
+      within "table" do
+        expect(page).to have_content(comment)
+        expect(page).to have_content(hours)
+        expect(page).to have_content("Delete")
+      end
+
+      click_on "Summary"
+
+      within "table" do
+        expect(page).to have_content(hours)
+      end
+    end
+
+    scenario "Adds invalid time log record", :js do
+
+      click_on "Time log"
+
+      fill_in "Hours", with: nil
+      fill_in "Commentary", with: comment
+      click_on "Add time log record"
+
+      expect(page).not_to have_css("table")
+      expect(page).to have_content("Errors detected:")
+    end
+
+    scenario "Deletes time log record", :js do
+      click_on "Time log"
+
+      fill_in "Hours", with: hours
+      fill_in "Commentary", with: comment
+      click_on "Add time log record"
+
+      accept_confirm do
+        click_on("Delete")
+      end
+
+      expect(page).not_to have_css("table")
+      expect(page).not_to have_content(hours)
+      expect(page).not_to have_content(comment)
     end
   end
 
-  scenario "Admin adds invalid time log record", :js do
+  describe "User" do
 
-    click_on "Time log"
-
-    fill_in "Hours", with: nil
-    fill_in "Commentary", with: comment
-    click_on "Add time log record"
-
-    expect(page).not_to have_css("table")
-    expect(page).to have_content("Errors detected:")
-  end
-
-  scenario "Admin deletes time log record", :js do
-    click_on "Time log"
-
-    fill_in "Hours", with: hours
-    fill_in "Commentary", with: comment
-    click_on "Add time log record"
-
-    accept_confirm do
-      click_on("Delete")
+    background do
+      sign_in user
+      visit task_path(task)
     end
 
-    expect(page).not_to have_css("table")
-    expect(page).not_to have_content(hours)
-    expect(page).not_to have_content(comment)
+    scenario "Adds time log record", :js do
+
+      click_on "Time log"
+
+      fill_in "Hours", with: hours
+      fill_in "Commentary", with: comment
+      click_on "Add time log record"
+
+      sleep 0.5
+
+      within "table" do
+        expect(page).to have_content(comment)
+        expect(page).to have_content(hours)
+        expect(page).not_to have_content("Delete")
+      end
+
+      click_on "Summary"
+
+      within "table" do
+        expect(page).to have_content(hours)
+      end
+    end
+
+    scenario "Adds invalid time log record", :js do
+
+      click_on "Time log"
+
+      fill_in "Hours", with: nil
+      fill_in "Commentary", with: comment
+      click_on "Add time log record"
+
+      expect(page).not_to have_css("table")
+      expect(page).to have_content("Errors detected:")
+    end
   end
 end
