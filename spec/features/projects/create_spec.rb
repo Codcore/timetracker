@@ -9,21 +9,29 @@ feature "Users can create projects", %q{
   let!(:admin) { create(:user, admin: true) }
   let!(:user) { create(:user) }
 
-  describe "Administrator" do
+  describe "Administrator", :js do
 
     scenario "Adds a new project and assigns user to it" do
       Capybara.using_session(:admin) do
         sign_in admin
         visit root_path
 
+        page.find('.navbar-toggler').click
         click_on "New project"
         expect(page).to have_content("New Project")
 
         fill_in "Name", with: "Test project"
-        fill_in "Description", with: "Test project description"
+
+        within_frame("project_description_ifr") do
+          editor = page.find_by_id("tinymce")
+          editor.native.send_keys "Test project description"
+        end
+
         click_on "Create project"
 
-        expect(page).to have_content "Test project"
+        within ".project-name" do
+          expect(page).to have_content "Test project"
+        end
 
         click_on "Members"
         page.select("#{user.name} #{user.surname}", from: "user_id")
@@ -39,21 +47,30 @@ feature "Users can create projects", %q{
       end
     end
 
-    scenario "Adds a new project with invalid data" do
+    scenario "Adds a new project with invalid data"  do
       sign_in admin
       visit root_path
 
+      page.find('.navbar-toggler').click
       click_on "New project"
+      expect(page).to have_content("New Project")
 
       fill_in "Name", with: ""
-      fill_in "Description", with: ""
+
+      within_frame("project_description_ifr") do
+        editor = page.find_by_id("tinymce")
+        editor.native.send_keys ""
+      end
+
       click_on "Create project"
 
+      expect(current_path).to eq new_project_path
       expect(page).to have_content "Name can\'t be blank"
+      save_and_open_page
     end
   end
 
-  describe "User" do
+  describe "User", :js do
 
     background do
       sign_in user

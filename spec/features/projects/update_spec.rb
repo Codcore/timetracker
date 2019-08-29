@@ -12,7 +12,7 @@ feature "Administrator can update projects", %q{
   let!(:project) { create(:project, author: admin) }
 
 
-  describe "Administrator" do
+  describe "Administrator", :js do
 
     background do
       sign_in admin
@@ -21,8 +21,14 @@ feature "Administrator can update projects", %q{
     end
 
     scenario "Edits project" do
+
       fill_in "Name", with: "New project name"
-      fill_in "Description", with: "New project description"
+
+      within_frame("project_description_ifr") do
+        editor = page.find_by_id("tinymce")
+        editor.native.send_keys "New project description"
+      end
+
       click_on "Update project"
 
       expect(page).to have_content "New project name"
@@ -33,14 +39,20 @@ feature "Administrator can update projects", %q{
 
     scenario "Edits project with invalid data" do
       fill_in "Name", with: ""
-      fill_in "Description", with: ""
+
+      within_frame("project_description_ifr") do
+        editor = page.find_by_id("tinymce")
+        editor.native.send_keys ""
+      end
+
       click_on "Update project"
 
       expect(page).to have_content "Name can\'t be blank"
+      expect(current_path).to eq edit_project_path(project)
     end
   end
 
-  describe "User" do
+  describe "User", :js do
 
     background do
       sign_in user

@@ -35,8 +35,6 @@ class ProjectsController < ApplicationController
     if @project.save
       flash[:notice] = MSG_PROJECT_CREATED
       redirect_to @project
-    else
-      render :new
     end
   end
 
@@ -46,8 +44,6 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       flash[:notice] = MSG_PROJECT_UPDATED
       redirect_to @project
-    else
-      render :edit
     end
   end
 
