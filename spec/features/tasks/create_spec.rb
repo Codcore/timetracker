@@ -12,14 +12,14 @@ feature "Administrator can create tasks for the project", %q{
   let!(:project) { create(:project, author: admin) }
 
 
-  describe "Administrator" do
+  describe "Administrator", :js do
 
     background do
       sign_in admin
       visit project_path(project)
     end
 
-    scenario "Creates project", :js do
+    scenario "Creates task", :js do
       task_name = "Test task"
       task_description = "Test task description"
 
@@ -93,7 +93,7 @@ feature "Administrator can create tasks for the project", %q{
     end
   end
 
-  describe "User" do
+  describe "User", :js do
 
     background do
       sign_in user
