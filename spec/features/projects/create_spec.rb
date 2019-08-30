@@ -14,7 +14,7 @@ feature "Users can create projects", %q{
     scenario "Adds a new project and assigns user to it" do
       Capybara.using_session(:admin) do
         sign_in admin
-        visit root_path
+        visit projects_path
 
         page.find('.navbar-toggler').click
         click_on "New project"
@@ -40,7 +40,7 @@ feature "Users can create projects", %q{
 
       Capybara.using_session(:user) do
         sign_in user
-        visit root_path
+        visit projects_path
 
         expect(page).to have_content "Test project description"
         expect(page).to have_content "Test project"
@@ -66,7 +66,6 @@ feature "Users can create projects", %q{
 
       expect(current_path).to eq new_project_path
       expect(page).to have_content "Name can\'t be blank"
-      save_and_open_page
     end
   end
 
