@@ -3,4 +3,4 @@
     = render 'shared/errors', resource: @task
   = render 'edit_form'
 
-= render template: 'layouts/project_card'
+= render template: 'layouts/project_card', locals: { project: @project }

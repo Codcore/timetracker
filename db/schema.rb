@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_070752) do
+ActiveRecord::Schema.define(version: 2019_09_01_135245) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "project_id"
     t.bigint "author_id"
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentable_type"
+    t.bigint "commentable_id"
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["project_id"], name: "index_comments_on_project_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -78,7 +79,6 @@ ActiveRecord::Schema.define(version: 2019_08_28_070752) do
     t.boolean "admin", default: false
   end
 
-  add_foreign_key "comments", "projects"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"

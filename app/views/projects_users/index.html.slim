@@ -18,4 +18,4 @@
             - if user_admin?
               = link_to 'Unassign user', project_projects_user_path(@project, user), class: "btn btn-sm btn-danger float-right", method: :delete
 
-= render template: 'layouts/project_card'
+= render template: 'layouts/project_card', locals: { project: @project }
