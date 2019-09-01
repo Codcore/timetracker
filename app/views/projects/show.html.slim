@@ -1,4 +1,4 @@
 = content_for :pane_content
   = raw @project.description
 
-= render template: 'layouts/project_card'
+= render template: 'layouts/project_card', locals: { project: @project }

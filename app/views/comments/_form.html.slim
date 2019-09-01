@@ -1,4 +1,4 @@
 div class="card p-3 mt-3"
-  = bootstrap_form_for [@project, @comment], remote: true do |form|
+  = bootstrap_form_for [@commentable, @comment], remote: true do |form|
     = form.text_area :body, label: "Write your comment:"
     = form.submit "Post comment", class: "btn btn-sm btn-success"

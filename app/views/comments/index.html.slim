@@ -4,7 +4,7 @@
   = render 'comments/form'
 
   .project-comments
-  - if @project.comments.any?
-    = render partial: 'comments/comment', collection: @project.comments
+  - if @commentable.comments.any?
+    = render partial: 'comments/comment', collection: @commentable.comments
 
-= render template: 'layouts/project_card'
+= render template: 'layouts/project_card', locals: { project: @commentable }

@@ -25,4 +25,4 @@
 
         div class="text-muted" = @task.created_at.strftime('%B %e at %l:%M %p')
 
-= render template: 'layouts/project_card'
+= render template: 'layouts/project_card', locals: { project: @project }

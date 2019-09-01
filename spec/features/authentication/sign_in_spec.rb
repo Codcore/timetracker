@@ -19,7 +19,7 @@ feature "User can login", %q{
     click_on "Log in"
 
     expect(page).to have_content "Welcome, #{user.name} #{user.surname}!"
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(projects_path)
   end
 
   scenario "Admin user logins to the system" do
@@ -28,7 +28,7 @@ feature "User can login", %q{
     click_on "Log in"
 
     expect(page).to have_content "Welcome, #{admin.name} #{admin.surname}!"
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(projects_path)
   end
 
   scenario "Unregistered user tries to sign in" do
