@@ -12,17 +12,18 @@ class TimeLogsController < ApplicationController
   def index
     @project = @task.project
     @time_log = TimeLog.new
-    @time_logs = TimeLog.all.where(task_id: @task.id)
+    @time_logs = TimeLog.for_task_and_user(@task, current_user)
   end
 
   def create
     @time_log = @task.time_logs.new(time_log_params)
+    @time_log.author_id = current_user.id
 
     if @time_log.save
       redirect_back fallback_location: task_time_logs_path(@time_log.task)
     else
       @project = @time_log.task.project
-      @time_logs = TimeLog.all.where(task_id: @task.id)
+      @time_logs = TimeLog.for_task_and_user(@task, current_user)
       render :index
     end
   end
