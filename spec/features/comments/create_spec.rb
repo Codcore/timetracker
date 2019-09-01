@@ -25,7 +25,7 @@ feature "Administrator can create comments for project", %q{
 
     scenario "Adds comment", :js do
 
-      click_on "Comments"
+      first(:link, "Comments").click
 
       fill_in "Write your comment:", with: valid_comment
       click_on "Post comment"
@@ -39,7 +39,7 @@ feature "Administrator can create comments for project", %q{
 
     scenario "Adds invalid comment", :js do
 
-      click_on "Comments"
+      first(:link, "Comments").click
 
       fill_in "Write your comment:", with: invalid_comment
       click_on "Post comment"
@@ -62,7 +62,7 @@ feature "Administrator can create comments for project", %q{
 
     scenario "Adds comment", :js do
 
-      click_on "Comments"
+      first(:link, "Comments").click
 
       fill_in "Write your comment:", with: valid_comment
       click_on "Post comment"
@@ -76,7 +76,7 @@ feature "Administrator can create comments for project", %q{
 
     scenario "Adds invalid comment", :js do
 
-      click_on "Comments"
+      first(:link, "Comments").click
 
       fill_in "Write your comment:", with: invalid_comment
       click_on "Post comment"

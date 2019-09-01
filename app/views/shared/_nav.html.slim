@@ -25,4 +25,10 @@ nav class="navbar navbar-expand-lg navbar-dark bg-dark"
       - else
 
         li class="nav-item"
-          = link_to 'Logout', logout_path, method: :delete, class: 'nav-link active'
+          = link_to "Projects", projects_path, class: "nav-link #{active_link controller: :projects, action: :index}"
+
+        li class="nav-item"
+          = link_to "Journal", journal_path, class: "nav-link #{active_link controller: :journal, action: :index}"
+
+        li class="nav-item"
+          = link_to 'Logout', logout_path, method: :delete, class: "nav-link"

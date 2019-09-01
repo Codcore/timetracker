@@ -8,12 +8,14 @@ nav class="navbar navbar-expand-lg navbar-dark bg-danger"
 
     ul class="navbar-nav mr-auto mt-2 mt-lg-0"
 
-      li class="nav-item active"
-        = link_to "New project", new_project_path, class: "nav-link"
-
-      li class="nav-item active"
-        = link_to "Projects", projects_path, class: "nav-link"
-
+      li class="nav-item"
+        = link_to "New project", new_project_path, class: "nav-link #{active_link controller: :projects, action: :new}"
 
       li class="nav-item"
-        = link_to 'Logout', logout_path, method: :delete, class: 'nav-link active'
+        = link_to "Projects", projects_path, class: "nav-link #{active_link controller: :projects, action: :index}"
+
+      li class="nav-item"
+        = link_to "Journal", journal_path, class: "nav-link #{active_link controller: :journal, action: :index}"
+
+      li class="nav-item"
+        = link_to 'Logout', logout_path, method: :delete, class: "nav-link"

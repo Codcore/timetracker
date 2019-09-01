@@ -6,7 +6,12 @@ class TimeLog < ApplicationRecord
 
   def self.for_task_and_user(task, current_user)
     return TimeLog.where(task_id: task.id) if current_user.admin?
-    TimeLog.all.where("task_id = ? AND author_id = ?", task.id, current_user.id)
+    TimeLog.where("task_id = ? AND author_id = ?", task.id, current_user.id)
+  end
+
+  def self.for_author_user(current_user)
+    return TimeLog.all if current_user.admin?
+    TimeLog.where("author_id = ?", current_user.id)
   end
 
 end

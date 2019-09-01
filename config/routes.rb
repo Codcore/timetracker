@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
+  get 'journal' => 'journal#index'
+
   resources :projects, param: :slug do
     resources :projects_users, only: [:index, :create, :destroy], path: 'assignments', param: :user_id
     resources :comments, only: [:create, :index]
