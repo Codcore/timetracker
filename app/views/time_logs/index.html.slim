@@ -36,4 +36,4 @@
               - if user_admin?
                 td = link_to "Delete record", time_log_path(record), class: "btn btn-sm btn-danger", method: :delete
 
-= render template: 'layouts/task_card'
+= render template: 'layouts/task_card', locals: { task: @project.task }
