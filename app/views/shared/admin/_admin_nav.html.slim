@@ -18,4 +18,8 @@ nav class="navbar navbar-expand-lg navbar-dark bg-danger"
         = link_to "Journal", journal_path, class: "nav-link #{active_link controller: :journal, action: :index}"
 
       li class="nav-item"
+        = link_to "Users", users_path, class: "nav-link #{active_link controller: :users}"
+
+
+      li class="nav-item"
         = link_to 'Logout', logout_path, method: :delete, class: "nav-link"

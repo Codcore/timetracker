@@ -1,0 +1,37 @@
+div class="row justify-content-center mt-3"
+  h2 Time Logs Journal
+
+- unless @users.empty?
+  div class = "row m-3"
+    table class="table table-bordered"
+      thead
+        tr
+          th scope="col" #
+          th scope="col" Registered at
+          th scope="col" Name
+          th scope="col" Email
+          th scope="col" Date of birth
+          th scope="col" Position
+          th scope="col" Admin
+          - if user_admin?
+            th scope="col" Manage user
+
+      tbody
+        - @users.each.with_index(1) do |user, index|
+          tr
+            th scope="row" = index
+            td = user.created_at.strftime('%B %e at %l:%M %p')
+            td = user.to_s
+            td = user.email
+            td = user.date_of_birth
+            td = user.position
+            td = user.admin?
+            - if user_admin?
+              td
+                |
+                = link_to "Delete", user_path(user), class: "btn btn-sm btn-danger m-1", method: :delete, data: { confirm: 'Are you sure?' }
+                br
+                = link_to "Edit", edit_user_path(user), class: "btn btn-sm btn-info m-1"
+
+div class="row justify-content-center mt-3"
+  = will_paginate @users, list_classes: %w(pagination justify-content-end)
