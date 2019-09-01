@@ -41,4 +41,4 @@
         th scope="col" Spent hours
         td = @task.time_logs.inject(0) { |hours, record| hours + record.hours }
 
-= render template: 'layouts/task_card'
+= render template: 'layouts/task_card', locals: { task: @task }

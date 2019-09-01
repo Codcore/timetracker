@@ -1,4 +1,4 @@
-= content_for :pane_content
+= content_for @commentable.is_a?(Project) ? :pane_content : :task_content
   .comment-errors
 
   = render 'comments/form'
@@ -7,4 +7,7 @@
   - if @commentable.comments.any?
     = render partial: 'comments/comment', collection: @commentable.comments
 
-= render template: 'layouts/project_card', locals: { project: @commentable }
+- if @commentable.is_a?(Project)
+  = render template: 'layouts/project_card', locals: { project: @commentable }
+- else
+  = render template: 'layouts/task_card', locals: { task: @commentable }

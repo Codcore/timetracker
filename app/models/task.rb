@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   belongs_to :project
   has_many :time_logs, dependent: :destroy
+  has_many :comments, dependent: :destroy, as: :commentable
 
   enum task_type: { feature: 0, bug: 1 }
   enum priority: { hot: 3, high: 2, normal: 1 }
