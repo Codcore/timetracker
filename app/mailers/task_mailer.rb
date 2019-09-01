@@ -1,8 +1,6 @@
 require 'json'
 
 class TaskMailer < ApplicationMailer
-  default from: "updates@taskmailer.com"
-
   def update_email
     @user = params[:user]
     @task = params[:task]
