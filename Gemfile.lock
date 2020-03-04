@@ -130,7 +130,7 @@ GEM
       rails
     popper_js (1.14.5)
     public_suffix (3.1.1)
-    puma (3.12.1)
+    puma (3.12.4)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -273,7 +273,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mysql2 (= 0.4.10)
   octicons_helper
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.3)
   rspec-rails
   sass-rails (~> 5.0)
